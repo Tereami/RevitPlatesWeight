@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevitPlatesWeight", "RevitPlatesWeight\RevitPlatesWeight.csproj", "{945978C3-66B3-4F83-8EB6-20F20ECA79FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		R2019|Any CPU = R2019|Any CPU
+		R2020|Any CPU = R2020|Any CPU
+		R2021|Any CPU = R2021|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{945978C3-66B3-4F83-8EB6-20F20ECA79FB}.R2019|Any CPU.ActiveCfg = R2019|Any CPU
+		{945978C3-66B3-4F83-8EB6-20F20ECA79FB}.R2019|Any CPU.Build.0 = R2019|Any CPU
+		{945978C3-66B3-4F83-8EB6-20F20ECA79FB}.R2020|Any CPU.ActiveCfg = R2020|Any CPU
+		{945978C3-66B3-4F83-8EB6-20F20ECA79FB}.R2020|Any CPU.Build.0 = R2020|Any CPU
+		{945978C3-66B3-4F83-8EB6-20F20ECA79FB}.R2021|Any CPU.ActiveCfg = R2021|Any CPU
+		{945978C3-66B3-4F83-8EB6-20F20ECA79FB}.R2021|Any CPU.Build.0 = R2021|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E3893C51-279A-48AA-A6B2-99444323CD72}
+	EndGlobalSection
+EndGlobal

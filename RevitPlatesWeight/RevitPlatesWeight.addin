@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">    
+    <Name>RevitPlatesWeight</Name>
+    <Assembly>
+      C:\csharp\RevitPlatesWeight\RevitPlatesWeight\bin\R2020\RevitPlatesWeight.dll
+    </Assembly>
+    <ClientId>945978c3-66b3-4f83-8eb6-20f20eca79fb</ClientId>
+    <FullClassName>RevitPlatesWeight.App</FullClassName>
+    <VendorId>Weandrevit</VendorId>
+    <VendorDescription>weandrevit.ru</VendorDescription>
+  </AddIn>
+</RevitAddIns>
