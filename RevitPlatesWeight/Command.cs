@@ -28,6 +28,7 @@ using Autodesk.AdvanceSteel.DocumentManagement;
 using Autodesk.AdvanceSteel.Geometry;
 using Autodesk.AdvanceSteel.Modelling;
 using Autodesk.AdvanceSteel.CADAccess;
+using System.Security.Cryptography.X509Certificates;
 #endregion
 
 namespace RevitPlatesWeight
@@ -57,6 +58,8 @@ namespace RevitPlatesWeight
 
 		public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
+			int platesCount  = 0;
+
 			RVTDocument doc = commandData.Application.ActiveUIDocument.Document;
 
 			View calculateView = doc.ActiveView;
@@ -138,7 +141,8 @@ namespace RevitPlatesWeight
 					WriteParameter(plate, ProfileNameParamName, ProfileNameValue);
 					WriteParameter(plate, ElementWeightTypeParamName, ElementWeightTypeValue);
 					WriteParameter(plate, ThicknessParamName, thickness);
-					
+
+					platesCount++;
 				}
 
 				foreach (PlateInJoint pij in PlatesInJoint)
@@ -188,11 +192,13 @@ namespace RevitPlatesWeight
 						else if (param.Name == ElementWeightTypeParamName)
 							subelem.SetParameterValue(paramId, new IntegerParameterValue(ElementWeightTypeValue));
 
-						
 					}
+					platesCount++;
 				}
 				t.Commit();
 			}
+
+			TaskDialog.Show("Отчет", "Обработано пластин: " + platesCount.ToString());
 
 			return Result.Succeeded;
         }
