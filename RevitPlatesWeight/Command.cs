@@ -49,7 +49,7 @@ namespace RevitPlatesWeight
 		public const string VolumeParamName = "О_Объем";
 
 		public const string ProfileNameParamName = "Орг.НаименованиеПрофиля";
-		public const string ProfileNameValue = "Прокат листовой горячекатанный";
+		public const string ProfileNameValue = "Сталь листовая(ГОСТ 19903-2015)";
 
 		public const string ElementWeightTypeParamName = "Орг.СпособПодсчетаМассы"; 
 		public const int ElementWeightTypeValue = 5; //5 для подсчета через О_Масса
