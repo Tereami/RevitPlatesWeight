@@ -8,7 +8,10 @@ This code is listed under the Creative Commons Attribution-ShareAlike license.
 You may use, redistribute, remix, tweak, and build upon this work non-commercially and commercially,
 as long as you credit the author by linking back and license your new creations under the same terms.
 This code is provided 'as is'. Author disclaims any implied warranty.
-Zuev Aleksandr, 2020, all rigths reserved.*/
+Zuev Aleksandr, 2020, all rigths reserved.
+
+More about solution / Подробнее: http://weandrevit.ru/plagin-massa-plastin-km/
+ */
 #endregion
 #region Using
 using System;
@@ -21,6 +24,12 @@ using Autodesk.Revit.UI;
 using RVTDocument = Autodesk.Revit.DB.Document;
 using ASDocument = Autodesk.AdvanceSteel.DocumentManagement.Document;
 using RVTransaction = Autodesk.Revit.DB.Transaction;
+
+#if R2021
+using FabricationTransaction = Autodesk.SteelConnectionsDB.FabricationTransaction;
+#else
+using FabricationTransaction = RvtDwgAddon.FabricationTransaction;
+#endif
 
 using Autodesk.Revit.DB.Steel;
 using Autodesk.Revit.DB.Structure;
@@ -84,7 +93,7 @@ namespace RevitPlatesWeight
 
 			List<PlateInJoint> PlatesInJoint = new List<PlateInJoint>();
 
-			using (RvtDwgAddon.FabricationTransaction t = new RvtDwgAddon.FabricationTransaction(doc, true, "Test plates"))
+			using (FabricationTransaction t = new FabricationTransaction(doc, true, "Test plates"))
 			{
 				foreach (StructuralConnectionHandler joint in joints)
 				{

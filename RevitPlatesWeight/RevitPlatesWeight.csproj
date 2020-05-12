@@ -14,23 +14,24 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R2019|AnyCPU' ">
     <OutputPath>bin\R2019\</OutputPath>
-    <DefineConstants>TRACE;R2019</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;R2019</DefineConstants>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <AssemblyName>$(AssemblyName)</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R2020|AnyCPU' ">
     <OutputPath>bin\R2020\</OutputPath>
-    <DefineConstants>TRACE;R2020</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;R2020</DefineConstants>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <AssemblyName>$(AssemblyName)</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R2021|AnyCPU' ">
     <OutputPath>bin\R2021\</OutputPath>
-    <DefineConstants>TRACE;R2021</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;R2021</DefineConstants>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <AssemblyName>$(AssemblyName)</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -134,7 +135,7 @@
           <Private>False</Private>
         </Reference>
         <Reference Include="RvtDwgAddon">
-          <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2021\AddIns\SteelConnections\RvtDwgAddon.dll</HintPath>
+          <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2021\AddIns\SteelConnections\Autodesk.SteelConnectionsDB.dll</HintPath>
           <Private>False</Private>
         </Reference>
       </ItemGroup>
@@ -150,6 +151,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="RevitPlatesWeight.addin" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Command_large.png" />
+    <EmbeddedResource Include="Resources\Command_small.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
