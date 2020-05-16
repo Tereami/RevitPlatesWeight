@@ -58,7 +58,7 @@ namespace RevitPlatesWeight
 		public const string VolumeParamName = "О_Объем";
 
 		public const string ProfileNameParamName = "Орг.НаименованиеПрофиля";
-		public const string ProfileNameValue = "Сталь листовая(ГОСТ 19903-2015)";
+		public const string ProfileNameValue = "Сталь листовая (ГОСТ 19903-2015)";
 
 		public const string ElementWeightTypeParamName = "Орг.СпособПодсчетаМассы"; 
 		public const int ElementWeightTypeValue = 5; //5 для подсчета через О_Масса
@@ -141,15 +141,15 @@ namespace RevitPlatesWeight
 					double thickness = plate.get_Parameter(BuiltInParameter.STEEL_ELEM_PLATE_THICKNESS).AsDouble();
 					string thicknessName = "-" + (thickness * 304.8).ToString("F0");
 
-					WriteParameter(plate, GroupConstParamName, GroupConstParamValue);
-					WriteParameter(plate, ElementTypeParamName, ElementTypeParamValue);
-					WriteParameter(plate, PlateNameParamName, thicknessName);
-					WriteParameter(plate, WeightParamName, mass);
-					WriteParameter(plate, MaterialNameParam, mid);
-					WriteParameter(plate, VolumeParamName, vol);
-					WriteParameter(plate, ProfileNameParamName, ProfileNameValue);
-					WriteParameter(plate, ElementWeightTypeParamName, ElementWeightTypeValue);
-					WriteParameter(plate, ThicknessParamName, thickness);
+					WriteParameter(plate, GroupConstParamName, GroupConstParamValue, false);
+					WriteParameter(plate, ElementTypeParamName, ElementTypeParamValue, false);
+					WriteParameter(plate, PlateNameParamName, thicknessName, false);
+					WriteParameter(plate, WeightParamName, mass, true);
+					WriteParameter(plate, MaterialNameParam, mid, true);
+					WriteParameter(plate, VolumeParamName, vol, true);
+					WriteParameter(plate, ProfileNameParamName, ProfileNameValue, false);
+					WriteParameter(plate, ElementWeightTypeParamName, ElementWeightTypeValue, false);
+					WriteParameter(plate, ThicknessParamName, thickness, false);
 
 					platesCount++;
 				}
@@ -201,6 +201,10 @@ namespace RevitPlatesWeight
 						else if (param.Name == ElementWeightTypeParamName)
 							subelem.SetParameterValue(paramId, new IntegerParameterValue(ElementWeightTypeValue));
 
+						else if (param.Name == ThicknessParamName)
+							subelem.SetParameterValue(paramId, new DoubleParameterValue(thickness));
+
+
 					}
 					platesCount++;
 				}
@@ -213,7 +217,7 @@ namespace RevitPlatesWeight
         }
 
 
-		public void WriteParameter(Element elem, string paramName, object Value)
+		public void WriteParameter(Element elem, string paramName, object Value, bool rewrite)
 		{
 			Parameter param = elem.LookupParameter(paramName);
 			if (param == null)
@@ -221,6 +225,7 @@ namespace RevitPlatesWeight
 				TaskDialog.Show("Ошибка", "Нет параметра " + paramName);
 				throw new Exception("Нет параметра " + paramName);
 			}
+			if (param.HasValue && !rewrite) return;
 			switch (param.StorageType)
 			{
 				case StorageType.Integer:
