@@ -149,7 +149,7 @@ namespace RevitPlatesWeight
 					WriteParameter(plate, VolumeParamName, vol, true);
 					WriteParameter(plate, ProfileNameParamName, ProfileNameValue, false);
 					WriteParameter(plate, ElementWeightTypeParamName, ElementWeightTypeValue, false);
-					WriteParameter(plate, ThicknessParamName, thickness, false);
+					WriteParameter(plate, ThicknessParamName, thickness, true);
 
 					platesCount++;
 				}
@@ -172,7 +172,6 @@ namespace RevitPlatesWeight
 					List<ElementId> paramIds = subelem.GetAllParameters().ToList();
 					foreach (ElementId paramId in paramIds)
 					{
-						BuiltInParameter bparam = (BuiltInParameter)paramId.IntegerValue;
 						Element param = doc.GetElement(paramId);
 
 						if (param == null) continue;
@@ -243,7 +242,7 @@ namespace RevitPlatesWeight
 			}
 		}
 
-		//public void WriteParameter(Subelement subelem, string paramName, object Value)
+		//public void WriteParameter(Subelement subelem, string paramName, object Value, bool rewrite)
 		//{
 		//	RVTDocument doc = subelem.Document;
 		//	List<Element> parameters = subelem
