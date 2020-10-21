@@ -33,6 +33,9 @@ namespace RevitPlatesWeight
             this.checkBoxRewrite.Checked = set.Rewrite;
             this.checkBoxWriteThickName.Checked = set.writeThickName;
             this.checkBoxWriteThickness.Checked = set.writeThickvalue;
+            this.checkBoxWritePlateLengthWidth.Checked = set.writePlatesLengthWidth;
+            this.checkBoxWriteBeamsLength.Checked = set.writeBeamLength;
+            this.checkBoxWriteColumnsLength.Checked = set.writeColumnLength;
 
             this.labelPath.Text = xmlpath;
         }
@@ -53,6 +56,9 @@ namespace RevitPlatesWeight
                 ElementWeightTypeValue = (int)numWeightType.Value,
                 writeThickName = checkBoxWriteThickName.Checked,
                 writeThickvalue= checkBoxWriteThickness.Checked,
+                writePlatesLengthWidth = checkBoxWritePlateLengthWidth.Checked,
+                writeBeamLength = checkBoxWriteBeamsLength.Checked,
+                writeColumnLength = checkBoxWriteColumnsLength.Checked,
                 Rewrite = checkBoxRewrite.Checked
             };
 

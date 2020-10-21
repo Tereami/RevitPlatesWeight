@@ -33,6 +33,9 @@ namespace RevitPlatesWeight
         public bool Rewrite = true;
         public bool writeThickName = true;
         public bool writeThickvalue = true;
+        public bool writePlatesLengthWidth = false;
+        public bool writeBeamLength = false;
+        public bool writeColumnLength = false;
 
         private static string xmlPath = "";
         

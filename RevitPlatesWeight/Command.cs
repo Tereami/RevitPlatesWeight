@@ -42,6 +42,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace RevitPlatesWeight
 {
+    public enum DimensionKind { Length, Width, Thickness }
     [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
     class Command : IExternalCommand
     {
@@ -55,9 +56,15 @@ namespace RevitPlatesWeight
         public const string ElementWeightTypeParamName = "Орг.СпособПодсчетаМассы";
 
         public const string ThicknessParamName = "Рзм.Толщина";
+        public const string PlateLengthParamName = "Рзм.Длина";
+        public const string PlateWidthParamName = "Рзм.Ширина";
+        public const string LengthCorrectedParamName = "Рзм.КорректировкаДлины";
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
+            
+
+
             Settings sets = Settings.Activate();
 
             int platesCount = 0;
@@ -70,6 +77,16 @@ namespace RevitPlatesWeight
                 TaskDialog.Show("Ошибка", "Перед запуском плагина перейдите на 3D вид с включенным Высоким уровнем детализации");
                 return Result.Failed;
             }
+
+            List<BuiltInCategory> constrCats = new List<BuiltInCategory> {
+                BuiltInCategory.OST_StructuralFraming,
+                BuiltInCategory.OST_StructuralColumns,
+            };
+            List<Element> constrs = new FilteredElementCollector(doc)
+                .WhereElementIsNotElementType()
+                .WherePasses(new ElementMulticategoryFilter(constrCats))
+                .ToElements()
+                .ToList();
 
             List<SteelProxyElement> PlatesFree = new FilteredElementCollector(doc)
                 .WhereElementIsNotElementType()
@@ -111,7 +128,36 @@ namespace RevitPlatesWeight
 
             using (RVTransaction t = new RVTransaction(doc))
             {
-                t.Start("Масса пластин");
+                t.Start("КМ параметризация");
+
+                foreach (Element elem in constrs)
+                {
+                    Parameter lengthParam = null;
+                    if (elem.Category.Id == new ElementId(BuiltInCategory.OST_StructuralColumns))
+                    {
+                        lengthParam = elem.get_Parameter(BuiltInParameter.STEEL_ELEM_CUT_LENGTH);
+                    }
+                    else if (elem.Category.Id == new ElementId(BuiltInCategory.OST_StructuralFraming))
+                    {
+                        lengthParam = elem.get_Parameter(BuiltInParameter.STRUCTURAL_FRAME_CUT_LENGTH);
+                    }
+                    if (lengthParam == null) continue;
+                    if (!lengthParam.HasValue) continue;
+                    double cutLength = lengthParam.AsDouble();
+
+                    Parameter trueLengthParam = elem.LookupParameter("Рзм.ДлинаБалкиИстинная");
+                    if (trueLengthParam == null) continue;
+                    if (!trueLengthParam.HasValue) continue;
+                    double trueLength = trueLengthParam.AsDouble();
+
+                    double delta = cutLength - trueLength;
+
+                    Parameter deltaParam = elem.LookupParameter("Рзм.КорректировкаДлины");
+                    if (deltaParam == null) continue;
+                    if (deltaParam.IsReadOnly) continue;
+
+                    deltaParam.Set(delta);
+                }
 
                 foreach (SteelProxyElement plate in PlatesFree)
                 {
@@ -129,8 +175,7 @@ namespace RevitPlatesWeight
 
                     double mass = vol * density;
 
-                    double thickness = plate.get_Parameter(BuiltInParameter.STEEL_ELEM_PLATE_THICKNESS).AsDouble();
-
+                    double thickness = GetDimension<SteelProxyElement>(plate, DimensionKind.Thickness);
 
                     string thicknessName = "";
                     if (sets.writeThickName)
@@ -151,6 +196,14 @@ namespace RevitPlatesWeight
                     {
                         WriteParameter(plate, ThicknessParamName, thickness, true);
                     }
+                    if (sets.writePlatesLengthWidth)
+                    {
+                        double plateLength = GetDimension<SteelProxyElement>(plate, DimensionKind.Length);
+                        WriteParameter(plate, PlateLengthParamName, plateLength, true);
+                        
+                        double plateWidth = GetDimension<SteelProxyElement>(plate, DimensionKind.Width);
+                        WriteParameter(plate, PlateWidthParamName, plateWidth, true);
+                    }
 
                     platesCount++;
                 }
@@ -165,15 +218,23 @@ namespace RevitPlatesWeight
 
                     double mass = pij.volume * density;
 
-                    ParameterValue thicknessParamVal = subelem.GetParameterValue(new ElementId(BuiltInParameter.STEEL_ELEM_PLATE_THICKNESS));
-                    DoubleParameterValue thicknessDoublevalue = thicknessParamVal as DoubleParameterValue;
-                    double thickness = thicknessDoublevalue.Value;
+                    double thickness = GetDimension<Subelement>(subelem, DimensionKind.Thickness);
 
                     string thicknessName = "";
                     if (sets.writeThickName)
                     {
                         thicknessName = "-" + (thickness * 304.8).ToString("F0");
                     }
+
+                    double plateLength = 0;
+                    double plateWidth = 0;
+
+                    if (sets.writePlatesLengthWidth)
+                    {
+                        plateLength = GetDimension<Subelement>(subelem, DimensionKind.Length);
+                        plateWidth = GetDimension<Subelement>(subelem, DimensionKind.Width);
+                    }
+
 
                     List<ElementId> paramIds = subelem.GetAllParameters().ToList();
                     foreach (ElementId paramId in paramIds)
@@ -209,6 +270,11 @@ namespace RevitPlatesWeight
                         else if (param.Name == ThicknessParamName)
                             subelem.SetParameterValue(paramId, new DoubleParameterValue(thickness));
 
+                        else if(param.Name == PlateLengthParamName && sets.writePlatesLengthWidth)
+                            subelem.SetParameterValue(paramId, new DoubleParameterValue(plateLength));
+
+                        else if (param.Name == PlateWidthParamName && sets.writePlatesLengthWidth)
+                            subelem.SetParameterValue(paramId, new DoubleParameterValue(plateWidth));
 
                     }
                     platesCount++;
@@ -221,6 +287,48 @@ namespace RevitPlatesWeight
             return Result.Succeeded;
         }
 
+
+        public double GetDimension<T>(T plate, DimensionKind kind)
+        {
+            BuiltInParameter param = BuiltInParameter.STEEL_ELEM_PLATE_LENGTH;
+
+            switch (kind)
+            {
+                case DimensionKind.Length:
+                    param = BuiltInParameter.STEEL_ELEM_PLATE_LENGTH;
+                    break;
+                case DimensionKind.Width:
+                    param = BuiltInParameter.STEEL_ELEM_PLATE_WIDTH;
+                    break;
+                case DimensionKind.Thickness:
+                    param = BuiltInParameter.STEEL_ELEM_PLATE_THICKNESS;
+                    break;
+            }
+
+            if (plate is SteelProxyElement)
+            {
+                SteelProxyElement plateFree = plate as SteelProxyElement;
+                Parameter plateParam = plateFree.get_Parameter(param);
+                if (plateParam == null || !plateParam.HasValue)
+                {
+                    throw new Exception("Нет параметра " + Enum.GetName(typeof(DimensionKind), kind) + " в пластине " + plateFree.Id.IntegerValue.ToString());
+                }
+                double dim = plateParam.AsDouble();
+                return dim;
+            }
+            if (plate is Subelement)
+            {
+                Subelement plateAsSubelem = plate as Subelement;
+                ParameterValue lengthParamValue = plateAsSubelem.GetParameterValue(new ElementId(param));
+                if(lengthParamValue == null)
+                {
+                    throw new Exception("Нет параметра " + Enum.GetName(typeof(DimensionKind), kind) + " в пластине " + plateAsSubelem.Element.Id.IntegerValue.ToString());
+                }
+                DoubleParameterValue lengthDoubleValue = lengthParamValue as DoubleParameterValue;
+                return lengthDoubleValue.Value;
+            }
+            return -1;
+        }
 
         public void WriteParameter(Element elem, string paramName, object Value, bool rewrite)
         {

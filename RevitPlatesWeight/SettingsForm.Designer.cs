@@ -33,6 +33,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxRewrite = new System.Windows.Forms.CheckBox();
             this.textBoxProfileName = new System.Windows.Forms.TextBox();
             this.numWeightType = new System.Windows.Forms.NumericUpDown();
             this.numElemType = new System.Windows.Forms.NumericUpDown();
@@ -42,14 +43,19 @@
             this.label5 = new System.Windows.Forms.Label();
             this.labelPath = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxWritePlateLengthWidth = new System.Windows.Forms.CheckBox();
             this.checkBoxWriteThickness = new System.Windows.Forms.CheckBox();
             this.checkBoxWriteThickName = new System.Windows.Forms.CheckBox();
-            this.checkBoxRewrite = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkBoxWriteColumnsLength = new System.Windows.Forms.CheckBox();
+            this.checkBoxWriteBeamsLength = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numWeightType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numElemType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numGroupConstr)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -113,6 +119,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры по умолчанию";
             // 
+            // checkBoxRewrite
+            // 
+            this.checkBoxRewrite.AutoSize = true;
+            this.checkBoxRewrite.Location = new System.Drawing.Point(13, 152);
+            this.checkBoxRewrite.Name = "checkBoxRewrite";
+            this.checkBoxRewrite.Size = new System.Drawing.Size(163, 17);
+            this.checkBoxRewrite.TabIndex = 6;
+            this.checkBoxRewrite.Text = "Перезаписывать значения";
+            this.checkBoxRewrite.UseVisualStyleBackColor = true;
+            // 
             // textBoxProfileName
             // 
             this.textBoxProfileName.Location = new System.Drawing.Point(13, 44);
@@ -160,7 +176,7 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.Location = new System.Drawing.Point(106, 345);
+            this.buttonOk.Location = new System.Drawing.Point(106, 466);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 2;
@@ -172,7 +188,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(187, 345);
+            this.buttonCancel.Location = new System.Drawing.Point(187, 466);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 2;
@@ -184,7 +200,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 282);
+            this.label5.Location = new System.Drawing.Point(12, 403);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(197, 13);
             this.label5.TabIndex = 3;
@@ -193,7 +209,7 @@
             // labelPath
             // 
             this.labelPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelPath.Location = new System.Drawing.Point(12, 300);
+            this.labelPath.Location = new System.Drawing.Point(12, 421);
             this.labelPath.Name = "labelPath";
             this.labelPath.Size = new System.Drawing.Size(250, 39);
             this.labelPath.TabIndex = 3;
@@ -203,14 +219,26 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.checkBoxWritePlateLengthWidth);
             this.groupBox2.Controls.Add(this.checkBoxWriteThickness);
             this.groupBox2.Controls.Add(this.checkBoxWriteThickName);
             this.groupBox2.Location = new System.Drawing.Point(12, 199);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(250, 71);
+            this.groupBox2.Size = new System.Drawing.Size(250, 112);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Толщина пластины";
+            this.groupBox2.Text = "Размеры пластины";
+            // 
+            // checkBoxWritePlateLengthWidth
+            // 
+            this.checkBoxWritePlateLengthWidth.AutoSize = true;
+            this.checkBoxWritePlateLengthWidth.Location = new System.Drawing.Point(13, 66);
+            this.checkBoxWritePlateLengthWidth.Name = "checkBoxWritePlateLengthWidth";
+            this.checkBoxWritePlateLengthWidth.Size = new System.Drawing.Size(215, 17);
+            this.checkBoxWritePlateLengthWidth.TabIndex = 1;
+            this.checkBoxWritePlateLengthWidth.Text = "Заполнить Рзм.Длина и Рзм.Ширина";
+            this.checkBoxWritePlateLengthWidth.UseVisualStyleBackColor = true;
             // 
             // checkBoxWriteThickness
             // 
@@ -234,15 +262,45 @@
             this.checkBoxWriteThickName.Text = "Заполнить О_Наименование";
             this.checkBoxWriteThickName.UseVisualStyleBackColor = true;
             // 
-            // checkBoxRewrite
+            // groupBox3
             // 
-            this.checkBoxRewrite.AutoSize = true;
-            this.checkBoxRewrite.Location = new System.Drawing.Point(13, 152);
-            this.checkBoxRewrite.Name = "checkBoxRewrite";
-            this.checkBoxRewrite.Size = new System.Drawing.Size(163, 17);
-            this.checkBoxRewrite.TabIndex = 6;
-            this.checkBoxRewrite.Text = "Перезаписывать значения";
-            this.checkBoxRewrite.UseVisualStyleBackColor = true;
+            this.groupBox3.Controls.Add(this.checkBoxWriteColumnsLength);
+            this.groupBox3.Controls.Add(this.checkBoxWriteBeamsLength);
+            this.groupBox3.Location = new System.Drawing.Point(12, 317);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(250, 72);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Заполнение Рзм.КорректировкаДлины";
+            // 
+            // checkBoxWriteColumnsLength
+            // 
+            this.checkBoxWriteColumnsLength.AutoSize = true;
+            this.checkBoxWriteColumnsLength.Location = new System.Drawing.Point(13, 44);
+            this.checkBoxWriteColumnsLength.Name = "checkBoxWriteColumnsLength";
+            this.checkBoxWriteColumnsLength.Size = new System.Drawing.Size(220, 17);
+            this.checkBoxWriteColumnsLength.TabIndex = 7;
+            this.checkBoxWriteColumnsLength.Text = "Для колонн (через \"Длину подрезки\")";
+            this.checkBoxWriteColumnsLength.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxWriteBeamsLength
+            // 
+            this.checkBoxWriteBeamsLength.AutoSize = true;
+            this.checkBoxWriteBeamsLength.Location = new System.Drawing.Point(13, 21);
+            this.checkBoxWriteBeamsLength.Name = "checkBoxWriteBeamsLength";
+            this.checkBoxWriteBeamsLength.Size = new System.Drawing.Size(233, 17);
+            this.checkBoxWriteBeamsLength.TabIndex = 6;
+            this.checkBoxWriteBeamsLength.Text = "Для балок (через \"Фактическую длину\")";
+            this.checkBoxWriteBeamsLength.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(28, 86);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(139, 13);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Только Revit 2020 и выше";
             // 
             // SettingsForm
             // 
@@ -250,7 +308,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(274, 380);
+            this.ClientSize = new System.Drawing.Size(274, 501);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.labelPath);
             this.Controls.Add(this.label5);
@@ -268,6 +327,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numGroupConstr)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -292,5 +353,10 @@
         private System.Windows.Forms.CheckBox checkBoxWriteThickness;
         private System.Windows.Forms.CheckBox checkBoxWriteThickName;
         private System.Windows.Forms.CheckBox checkBoxRewrite;
+        private System.Windows.Forms.CheckBox checkBoxWritePlateLengthWidth;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox checkBoxWriteColumnsLength;
+        private System.Windows.Forms.CheckBox checkBoxWriteBeamsLength;
+        private System.Windows.Forms.Label label6;
     }
 }
