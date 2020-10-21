@@ -37,6 +37,11 @@ namespace RevitPlatesWeight
             this.checkBoxWriteBeamsLength.Checked = set.writeBeamLength;
             this.checkBoxWriteColumnsLength.Checked = set.writeColumnLength;
 
+#if R2019
+            checkBoxWritePlateLengthWidth.Enabled = false;
+            checkBoxWritePlateLengthWidth.Enabled = false;
+#endif
+
             this.labelPath.Text = xmlpath;
         }
 

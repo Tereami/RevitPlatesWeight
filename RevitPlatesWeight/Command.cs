@@ -62,7 +62,7 @@ namespace RevitPlatesWeight
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            
+
 
 
             Settings sets = Settings.Activate();
@@ -133,10 +133,14 @@ namespace RevitPlatesWeight
                 foreach (Element elem in constrs)
                 {
                     Parameter lengthParam = null;
+
                     if (elem.Category.Id == new ElementId(BuiltInCategory.OST_StructuralColumns))
                     {
+#if !R2019
                         lengthParam = elem.get_Parameter(BuiltInParameter.STEEL_ELEM_CUT_LENGTH);
+#endif
                     }
+
                     else if (elem.Category.Id == new ElementId(BuiltInCategory.OST_StructuralFraming))
                     {
                         lengthParam = elem.get_Parameter(BuiltInParameter.STRUCTURAL_FRAME_CUT_LENGTH);
@@ -200,7 +204,7 @@ namespace RevitPlatesWeight
                     {
                         double plateLength = GetDimension<SteelProxyElement>(plate, DimensionKind.Length);
                         WriteParameter(plate, PlateLengthParamName, plateLength, true);
-                        
+
                         double plateWidth = GetDimension<SteelProxyElement>(plate, DimensionKind.Width);
                         WriteParameter(plate, PlateWidthParamName, plateWidth, true);
                     }
@@ -270,7 +274,7 @@ namespace RevitPlatesWeight
                         else if (param.Name == ThicknessParamName)
                             subelem.SetParameterValue(paramId, new DoubleParameterValue(thickness));
 
-                        else if(param.Name == PlateLengthParamName && sets.writePlatesLengthWidth)
+                        else if (param.Name == PlateLengthParamName && sets.writePlatesLengthWidth)
                             subelem.SetParameterValue(paramId, new DoubleParameterValue(plateLength));
 
                         else if (param.Name == PlateWidthParamName && sets.writePlatesLengthWidth)
@@ -290,10 +294,11 @@ namespace RevitPlatesWeight
 
         public double GetDimension<T>(T plate, DimensionKind kind)
         {
-            BuiltInParameter param = BuiltInParameter.STEEL_ELEM_PLATE_LENGTH;
+            BuiltInParameter param = BuiltInParameter.STEEL_ELEM_PLATE_THICKNESS;
 
             switch (kind)
             {
+#if !R2019
                 case DimensionKind.Length:
                     param = BuiltInParameter.STEEL_ELEM_PLATE_LENGTH;
                     break;
@@ -303,6 +308,7 @@ namespace RevitPlatesWeight
                 case DimensionKind.Thickness:
                     param = BuiltInParameter.STEEL_ELEM_PLATE_THICKNESS;
                     break;
+#endif
             }
 
             if (plate is SteelProxyElement)
@@ -320,7 +326,7 @@ namespace RevitPlatesWeight
             {
                 Subelement plateAsSubelem = plate as Subelement;
                 ParameterValue lengthParamValue = plateAsSubelem.GetParameterValue(new ElementId(param));
-                if(lengthParamValue == null)
+                if (lengthParamValue == null)
                 {
                     throw new Exception("Нет параметра " + Enum.GetName(typeof(DimensionKind), kind) + " в пластине " + plateAsSubelem.Element.Id.IntegerValue.ToString());
                 }
