@@ -17,6 +17,7 @@ More about solution / Подробнее: http://weandrevit.ru/plagin-massa-plas
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
@@ -46,23 +47,18 @@ namespace RevitPlatesWeight
     [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
     class Command : IExternalCommand
     {
-        public const string GroupConstParamName = "КМ.ГруппаКонструкций";
-        public const string ElementTypeParamName = "КМ.ТипЭлемента";
-        public const string PlateNameParamName = "Мрк.НаименованиеСоставноеПрефикс";
-        public const string WeightParamName = "О_Масса";
-        public const string MaterialNameParam = "О_Материал";
-        public const string VolumeParamName = "О_Объем";
-        public const string ProfileNameParamName = "Орг.НаименованиеПрофиля";
-        public const string ElementWeightTypeParamName = "Орг.СпособПодсчетаМассы";
-
-        public const string ThicknessParamName = "Рзм.Толщина";
-        public const string PlateLengthParamName = "Рзм.Длина";
-        public const string PlateWidthParamName = "Рзм.Ширина";
-        public const string LengthCorrectedParamName = "Рзм.КорректировкаДлины";
-
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-
+            Debug.Listeners.Clear();
+            Debug.Listeners.Add(new Logger());
+            Debug.WriteLine("KM parametrisation start");
+            int revitVersionNumber = int.Parse(commandData.Application.Application.VersionNumber);
+            if (revitVersionNumber < 2019)
+            {
+                TaskDialog.Show("Ошибка", "Функция доступна только в Revit 2019 и выше!");
+                Debug.WriteLine("Incorect Revit version");
+                return Result.Cancelled;
+            }
 
 
             Settings sets = Settings.Activate();
@@ -75,6 +71,7 @@ namespace RevitPlatesWeight
             if (!(calculateView is View3D) || calculateView.DetailLevel != ViewDetailLevel.Fine)
             {
                 TaskDialog.Show("Ошибка", "Перед запуском плагина перейдите на 3D вид с включенным Высоким уровнем детализации");
+                Debug.WriteLine("Unable to use view " + calculateView.Name);
                 return Result.Failed;
             }
 
@@ -87,48 +84,57 @@ namespace RevitPlatesWeight
                 .WherePasses(new ElementMulticategoryFilter(constrCats))
                 .ToElements()
                 .ToList();
+            Debug.WriteLine("Beams and columns found: " + constrs.Count.ToString());
 
-            List<SteelProxyElement> PlatesFree = new FilteredElementCollector(doc)
+            List<Plate> plates = new FilteredElementCollector(doc)
                 .WhereElementIsNotElementType()
                 .OfClass(typeof(SteelProxyElement))
                 .Cast<SteelProxyElement>()
                 .Where(i => i.GeomType == GeomObjectType.Plate)
-                .ToList();
+                .Select(i => new PlateFree(i, calculateView, sets))
+                .ToList<Plate>();
+            Debug.WriteLine("Free plates found: " + plates.Count.ToString());
+
 
             List<StructuralConnectionHandler> joints = new FilteredElementCollector(doc)
                 .WhereElementIsNotElementType()
                 .OfClass(typeof(StructuralConnectionHandler))
                 .Cast<StructuralConnectionHandler>()
                 .ToList();
-
-            List<PlateInJoint> PlatesInJoint = new List<PlateInJoint>();
+            Debug.WriteLine("Joints found: " + joints.Count.ToString());
 
             using (FabricationTransaction t = new FabricationTransaction(doc, true, "Test plates"))
             {
+                Debug.WriteLine("Start fabrication transaction");
                 foreach (StructuralConnectionHandler joint in joints)
                 {
                     List<Subelement> subelems = joint.GetSubelements().ToList();
                     foreach (Subelement subelem in subelems)
                     {
                         if (subelem.Category.Id != new ElementId(BuiltInCategory.OST_StructConnectionPlates)) continue;
-                        PlateInJoint pij = new PlateInJoint();
-                        pij.subelem = subelem;
+                        PlateInJoint pij = new PlateInJoint(subelem, doc, sets);
+                        plates.Add(pij);
 
-                        Reference rf = subelem.GetReference();
-                        FilerObject filerObj = AdvanceSteelUtils.GetFilerObject(doc, rf);
-                        Plate pl = filerObj as Plate;
-                        double vol = pl.Volume / (1000000 * 29.504);
-
-                        pij.volume = vol;
-
-                        PlatesInJoint.Add(pij);
                     }
                 }
+                Debug.WriteLine("Fabrication transaction success");
             }
+
+            foreach (Plate plate in plates)
+            {
+                plate.CalculateValues(doc);
+            }
+
+            Dictionary<string, List<Plate>> platesGrouped = plates
+            .GroupBy(i => i.GetKey(sets.enablePlatesNumbering, sets.writePlatesLengthWidth))
+            .ToDictionary(j => j.Key, j => j.ToList());
+            Debug.WriteLine("Plates groups: " + platesGrouped.Keys.Count.ToString());
+
 
             using (RVTransaction t = new RVTransaction(doc))
             {
                 t.Start("КМ параметризация");
+                Debug.WriteLine("Start beams and columns parametrisation");
 
                 foreach (Element elem in constrs)
                 {
@@ -163,127 +169,25 @@ namespace RevitPlatesWeight
                     deltaParam.Set(delta);
                 }
 
-                foreach (SteelProxyElement plate in PlatesFree)
+                Debug.WriteLine("Start plates parametrisation");
+                int platePosition = sets.plateNumberingStartWith;
+                foreach (var kvp in platesGrouped)
                 {
-                    Options opt = new Options() { View = calculateView };
-                    GeometryElement geoElem = plate.get_Geometry(opt);
-                    GeometryInstance geoIns = geoElem.First() as GeometryInstance;
-                    GeometryElement geosol = geoIns.GetInstanceGeometry();
+                    List<Plate> curPlates = kvp.Value;
+                    Debug.WriteLine("Plate group key: " + kvp.Key);
 
-                    Solid sol = geosol.First() as Solid;
-
-                    ElementId mid = plate.get_Parameter(BuiltInParameter.STRUCTURAL_MATERIAL_PARAM).AsElementId();
-                    double density = MaterialUtils.GetMaterialDensity(doc, mid);
-
-                    double vol = sol.Volume;
-
-                    double mass = vol * density;
-
-                    double thickness = GetDimension<SteelProxyElement>(plate, DimensionKind.Thickness);
-
-                    string thicknessName = "";
-                    if (sets.writeThickName)
+                    foreach (Plate plate in curPlates)
                     {
-                        thicknessName = "-" + (thickness * 304.8).ToString("F0");
+                        plate.WriteValues(sets, doc);
+                        plate.WriteParameter(doc, sets.plateNumberingParamName, StorageType.String, platePosition.ToString(), true);
+                        platesCount++;
                     }
 
-                    WriteParameter(plate, GroupConstParamName, sets.GroupConstParamValue, sets.Rewrite);
-                    WriteParameter(plate, ElementTypeParamName, sets.ElementTypeParamValue, sets.Rewrite);
-                    WriteParameter(plate, PlateNameParamName, thicknessName, true);
-                    WriteParameter(plate, WeightParamName, mass, true);
-                    WriteParameter(plate, MaterialNameParam, mid, true);
-                    WriteParameter(plate, VolumeParamName, vol, true);
-                    WriteParameter(plate, ProfileNameParamName, sets.ProfileNameValue, sets.Rewrite);
-                    WriteParameter(plate, ElementWeightTypeParamName, sets.ElementWeightTypeValue, sets.Rewrite);
-
-                    if (sets.writeThickvalue)
-                    {
-                        WriteParameter(plate, ThicknessParamName, thickness, true);
-                    }
-                    if (sets.writePlatesLengthWidth)
-                    {
-                        double plateLength = GetDimension<SteelProxyElement>(plate, DimensionKind.Length);
-                        WriteParameter(plate, PlateLengthParamName, plateLength, true);
-
-                        double plateWidth = GetDimension<SteelProxyElement>(plate, DimensionKind.Width);
-                        WriteParameter(plate, PlateWidthParamName, plateWidth, true);
-                    }
-
-                    platesCount++;
+                    platePosition++;
                 }
 
-                foreach (PlateInJoint pij in PlatesInJoint)
-                {
-                    Subelement subelem = pij.subelem;
-                    ParameterValue pv = subelem.GetParameterValue(new ElementId(BuiltInParameter.STRUCTURAL_MATERIAL_PARAM));
-                    ElementIdParameterValue idpv = pv as ElementIdParameterValue;
-                    ElementId mid = idpv.Value;
-                    double density = MaterialUtils.GetMaterialDensity(doc, mid);
-
-                    double mass = pij.volume * density;
-
-                    double thickness = GetDimension<Subelement>(subelem, DimensionKind.Thickness);
-
-                    string thicknessName = "";
-                    if (sets.writeThickName)
-                    {
-                        thicknessName = "-" + (thickness * 304.8).ToString("F0");
-                    }
-
-                    double plateLength = 0;
-                    double plateWidth = 0;
-
-                    if (sets.writePlatesLengthWidth)
-                    {
-                        plateLength = GetDimension<Subelement>(subelem, DimensionKind.Length);
-                        plateWidth = GetDimension<Subelement>(subelem, DimensionKind.Width);
-                    }
-
-
-                    List<ElementId> paramIds = subelem.GetAllParameters().ToList();
-                    foreach (ElementId paramId in paramIds)
-                    {
-                        Element param = doc.GetElement(paramId);
-
-                        if (param == null) continue;
-
-                        else if (param.Name == GroupConstParamName)
-                            subelem.SetParameterValue(paramId, new IntegerParameterValue(sets.GroupConstParamValue));
-
-                        else if (param.Name == ElementTypeParamName)
-                            subelem.SetParameterValue(paramId, new IntegerParameterValue(sets.ElementTypeParamValue));
-
-                        else if (param.Name == PlateNameParamName && sets.writeThickvalue)
-                            subelem.SetParameterValue(paramId, new StringParameterValue(thicknessName));
-
-                        else if (param.Name == WeightParamName)
-                            subelem.SetParameterValue(paramId, new DoubleParameterValue(mass));
-
-                        else if (param.Name == MaterialNameParam)
-                            subelem.SetParameterValue(paramId, new ElementIdParameterValue(mid));
-
-                        else if (param.Name == VolumeParamName)
-                            subelem.SetParameterValue(paramId, new DoubleParameterValue(pij.volume));
-
-                        else if (param.Name == ProfileNameParamName)
-                            subelem.SetParameterValue(paramId, new StringParameterValue(sets.ProfileNameValue));
-
-                        else if (param.Name == ElementWeightTypeParamName)
-                            subelem.SetParameterValue(paramId, new IntegerParameterValue(sets.ElementWeightTypeValue));
-
-                        else if (param.Name == ThicknessParamName)
-                            subelem.SetParameterValue(paramId, new DoubleParameterValue(thickness));
-
-                        else if (param.Name == PlateLengthParamName && sets.writePlatesLengthWidth)
-                            subelem.SetParameterValue(paramId, new DoubleParameterValue(plateLength));
-
-                        else if (param.Name == PlateWidthParamName && sets.writePlatesLengthWidth)
-                            subelem.SetParameterValue(paramId, new DoubleParameterValue(plateWidth));
-
-                    }
-                    platesCount++;
-                }
                 t.Commit();
+                Debug.WriteLine("Revit transaction finished");
             }
 
             BalloonTip.Show("Успешно", "Обработано пластин: " + platesCount.ToString());
@@ -292,74 +196,9 @@ namespace RevitPlatesWeight
         }
 
 
-        public double GetDimension<T>(T plate, DimensionKind kind)
-        {
-            BuiltInParameter param = BuiltInParameter.STEEL_ELEM_PLATE_THICKNESS;
 
-            switch (kind)
-            {
-#if !R2019
-                case DimensionKind.Length:
-                    param = BuiltInParameter.STEEL_ELEM_PLATE_LENGTH;
-                    break;
-                case DimensionKind.Width:
-                    param = BuiltInParameter.STEEL_ELEM_PLATE_WIDTH;
-                    break;
-                case DimensionKind.Thickness:
-                    param = BuiltInParameter.STEEL_ELEM_PLATE_THICKNESS;
-                    break;
-#endif
-            }
 
-            if (plate is SteelProxyElement)
-            {
-                SteelProxyElement plateFree = plate as SteelProxyElement;
-                Parameter plateParam = plateFree.get_Parameter(param);
-                if (plateParam == null || !plateParam.HasValue)
-                {
-                    throw new Exception("Нет параметра " + Enum.GetName(typeof(DimensionKind), kind) + " в пластине " + plateFree.Id.IntegerValue.ToString());
-                }
-                double dim = plateParam.AsDouble();
-                return dim;
-            }
-            if (plate is Subelement)
-            {
-                Subelement plateAsSubelem = plate as Subelement;
-                ParameterValue lengthParamValue = plateAsSubelem.GetParameterValue(new ElementId(param));
-                if (lengthParamValue == null)
-                {
-                    throw new Exception("Нет параметра " + Enum.GetName(typeof(DimensionKind), kind) + " в пластине " + plateAsSubelem.Element.Id.IntegerValue.ToString());
-                }
-                DoubleParameterValue lengthDoubleValue = lengthParamValue as DoubleParameterValue;
-                return lengthDoubleValue.Value;
-            }
-            return -1;
-        }
 
-        public void WriteParameter(Element elem, string paramName, object Value, bool rewrite)
-        {
-            Parameter param = elem.LookupParameter(paramName);
-            if (param == null)
-            {
-                TaskDialog.Show("Ошибка", "Нет параметра " + paramName);
-                throw new Exception("Нет параметра " + paramName);
-            }
-            if (param.HasValue && !rewrite) return;
-            switch (param.StorageType)
-            {
-                case StorageType.Integer:
-                    param.Set((int)Value);
-                    break;
-                case StorageType.Double:
-                    param.Set((double)Value);
-                    break;
-                case StorageType.String:
-                    param.Set((string)Value);
-                    break;
-                case StorageType.ElementId:
-                    param.Set((ElementId)Value);
-                    break;
-            }
-        }
+
     }
 }

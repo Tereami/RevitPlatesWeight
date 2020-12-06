@@ -34,6 +34,9 @@ namespace RevitPlatesWeight
             this.checkBoxWriteThickName.Checked = set.writeThickName;
             this.checkBoxWriteThickness.Checked = set.writeThickvalue;
             this.checkBoxWritePlateLengthWidth.Checked = set.writePlatesLengthWidth;
+            this.checkBoxEnablePlateNumbering.Checked = set.enablePlatesNumbering;
+            this.textBoxPlateNumberingParamName.Text = set.plateNumberingParamName;
+            this.numericUpDownNumberingStartWith.Value = set.plateNumberingStartWith;
             this.checkBoxWriteBeamsLength.Checked = set.writeBeamLength;
             this.checkBoxWriteColumnsLength.Checked = set.writeColumnLength;
 
@@ -62,6 +65,9 @@ namespace RevitPlatesWeight
                 writeThickName = checkBoxWriteThickName.Checked,
                 writeThickvalue= checkBoxWriteThickness.Checked,
                 writePlatesLengthWidth = checkBoxWritePlateLengthWidth.Checked,
+                enablePlatesNumbering = checkBoxEnablePlateNumbering.Checked,
+                plateNumberingParamName = textBoxPlateNumberingParamName.Text,
+                plateNumberingStartWith = (int)numericUpDownNumberingStartWith.Value,
                 writeBeamLength = checkBoxWriteBeamsLength.Checked,
                 writeColumnLength = checkBoxWriteColumnsLength.Checked,
                 Rewrite = checkBoxRewrite.Checked

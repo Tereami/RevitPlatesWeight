@@ -63,7 +63,7 @@
           <HintPath>C:\Program Files\Autodesk\Revit 2019\RevitAPIUI.dll</HintPath>
           <Private>False</Private>
         </Reference>
-		<Reference Include="AdWindows">
+        <Reference Include="AdWindows">
           <HintPath>C:\Program Files\Autodesk\Revit 2019\AdWindows.dll</HintPath>
           <Private>False</Private>
         </Reference>
@@ -99,7 +99,7 @@
           <HintPath>C:\Program Files\Autodesk\Revit 2020\RevitAPIUI.dll</HintPath>
           <Private>False</Private>
         </Reference>
-		<Reference Include="AdWindows">
+        <Reference Include="AdWindows">
           <HintPath>C:\Program Files\Autodesk\Revit 2020\AdWindows.dll</HintPath>
           <Private>False</Private>
         </Reference>
@@ -135,7 +135,7 @@
           <HintPath>C:\Program Files\Autodesk\Revit 2021\RevitAPIUI.dll</HintPath>
           <Private>False</Private>
         </Reference>
-		<Reference Include="AdWindows">
+        <Reference Include="AdWindows">
           <HintPath>C:\Program Files\Autodesk\Revit 2021\AdWindows.dll</HintPath>
           <Private>False</Private>
         </Reference>
@@ -167,7 +167,10 @@
     <Compile Include="App.cs" />
     <Compile Include="BalloonTip.cs" />
     <Compile Include="Command.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Plate.cs" />
     <Compile Include="MaterialUtils.cs" />
+    <Compile Include="PlateFree.cs" />
     <Compile Include="PlateInJoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />

@@ -20,6 +20,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
+using System.Diagnostics;
 
 namespace RevitPlatesWeight
 {
@@ -34,6 +35,9 @@ namespace RevitPlatesWeight
         public bool writeThickName = true;
         public bool writeThickvalue = true;
         public bool writePlatesLengthWidth = false;
+        public bool enablePlatesNumbering = false;
+        public string plateNumberingParamName = "Марка";
+        public int plateNumberingStartWith = 1;
         public bool writeBeamLength = false;
         public bool writeColumnLength = false;
 
@@ -41,10 +45,12 @@ namespace RevitPlatesWeight
         
         public static Settings Activate()
         {
+            Debug.WriteLine("Start activate settins");
             string appdataPath =  Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string rbspath = Path.Combine(appdataPath, "bim-starter");
             if (!Directory.Exists(rbspath))
             {
+                Debug.WriteLine("Create directory " + rbspath);
                 Directory.CreateDirectory(rbspath);
             }
             string solutionName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
@@ -52,6 +58,7 @@ namespace RevitPlatesWeight
             if (!Directory.Exists(solutionFolder))
             {
                 Directory.CreateDirectory(solutionFolder);
+                Debug.WriteLine("Create directory " + solutionFolder);
             }
             xmlPath = Path.Combine(solutionFolder, "settings.xml");
             Settings s = null;
@@ -64,6 +71,7 @@ namespace RevitPlatesWeight
                     try
                     {
                         s = (Settings)serializer.Deserialize(reader);
+                        Debug.WriteLine("Settings deserialize success");
                     }
                     catch { }
                 }
@@ -71,25 +79,31 @@ namespace RevitPlatesWeight
             if(s == null)
             {
                 s = new Settings();
+                Debug.WriteLine("Settings is null, create new one");
             }
             SettingsForm form = new SettingsForm(s, xmlPath);
+            Debug.WriteLine("Show settings form");
             form.ShowDialog();
             if(form.DialogResult != System.Windows.Forms.DialogResult.OK)
             {
+                Debug.WriteLine("Setting form cancelled");
                 throw new Exception("Отменено");
             }
             s = form.newSets;
+            Debug.WriteLine("Settings success");
             return s;
         }
 
         public void Save()
         {
+            Debug.WriteLine("Start save settins to file " + xmlPath);
             if (File.Exists(xmlPath)) File.Delete(xmlPath);
             XmlSerializer serializer = new XmlSerializer(typeof(Settings));
             using (FileStream writer = new FileStream(xmlPath, FileMode.OpenOrCreate))
             {
                 serializer.Serialize(writer, this);
             }
+            Debug.WriteLine("Save settings success");
         }
     }
 }

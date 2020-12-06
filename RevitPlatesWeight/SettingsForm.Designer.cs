@@ -43,19 +43,27 @@
             this.label5 = new System.Windows.Forms.Label();
             this.labelPath = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.checkBoxWritePlateLengthWidth = new System.Windows.Forms.CheckBox();
             this.checkBoxWriteThickness = new System.Windows.Forms.CheckBox();
             this.checkBoxWriteThickName = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.checkBoxWriteColumnsLength = new System.Windows.Forms.CheckBox();
             this.checkBoxWriteBeamsLength = new System.Windows.Forms.CheckBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkBoxEnablePlateNumbering = new System.Windows.Forms.CheckBox();
+            this.textBoxPlateNumberingParamName = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.numericUpDownNumberingStartWith = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numWeightType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numElemType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numGroupConstr)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberingStartWith)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -176,7 +184,7 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.Location = new System.Drawing.Point(106, 466);
+            this.buttonOk.Location = new System.Drawing.Point(106, 583);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 2;
@@ -188,7 +196,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(187, 466);
+            this.buttonCancel.Location = new System.Drawing.Point(187, 583);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 2;
@@ -200,7 +208,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 403);
+            this.label5.Location = new System.Drawing.Point(12, 520);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(197, 13);
             this.label5.TabIndex = 3;
@@ -209,7 +217,7 @@
             // labelPath
             // 
             this.labelPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelPath.Location = new System.Drawing.Point(12, 421);
+            this.labelPath.Location = new System.Drawing.Point(12, 538);
             this.labelPath.Name = "labelPath";
             this.labelPath.Size = new System.Drawing.Size(250, 39);
             this.labelPath.TabIndex = 3;
@@ -229,6 +237,15 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Размеры пластины";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(28, 86);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(139, 13);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Только Revit 2020 и выше";
             // 
             // checkBoxWritePlateLengthWidth
             // 
@@ -264,9 +281,10 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox3.Controls.Add(this.checkBoxWriteColumnsLength);
             this.groupBox3.Controls.Add(this.checkBoxWriteBeamsLength);
-            this.groupBox3.Location = new System.Drawing.Point(12, 317);
+            this.groupBox3.Location = new System.Drawing.Point(12, 438);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(250, 72);
             this.groupBox3.TabIndex = 5;
@@ -293,14 +311,68 @@
             this.checkBoxWriteBeamsLength.Text = "Для балок (через \"Фактическую длину\")";
             this.checkBoxWriteBeamsLength.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // groupBox4
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(28, 86);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(139, 13);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "Только Revit 2020 и выше";
+            this.groupBox4.Controls.Add(this.checkBoxEnablePlateNumbering);
+            this.groupBox4.Controls.Add(this.textBoxPlateNumberingParamName);
+            this.groupBox4.Controls.Add(this.numericUpDownNumberingStartWith);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.label8);
+            this.groupBox4.Location = new System.Drawing.Point(12, 317);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(250, 112);
+            this.groupBox4.TabIndex = 6;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Нумерация пластин";
+            // 
+            // checkBoxEnablePlateNumbering
+            // 
+            this.checkBoxEnablePlateNumbering.AutoSize = true;
+            this.checkBoxEnablePlateNumbering.Location = new System.Drawing.Point(13, 19);
+            this.checkBoxEnablePlateNumbering.Name = "checkBoxEnablePlateNumbering";
+            this.checkBoxEnablePlateNumbering.Size = new System.Drawing.Size(75, 17);
+            this.checkBoxEnablePlateNumbering.TabIndex = 2;
+            this.checkBoxEnablePlateNumbering.Text = "Включить";
+            this.checkBoxEnablePlateNumbering.UseVisualStyleBackColor = true;
+            // 
+            // textBoxPlateNumberingParamName
+            // 
+            this.textBoxPlateNumberingParamName.Location = new System.Drawing.Point(13, 58);
+            this.textBoxPlateNumberingParamName.Name = "textBoxPlateNumberingParamName";
+            this.textBoxPlateNumberingParamName.Size = new System.Drawing.Size(223, 20);
+            this.textBoxPlateNumberingParamName.TabIndex = 1;
+            this.textBoxPlateNumberingParamName.Text = "Марка";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 42);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(166, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Имя параметра для нумерации";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(13, 86);
+            this.label8.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(100, 13);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Начать с позиции:";
+            // 
+            // numericUpDownNumberingStartWith
+            // 
+            this.numericUpDownNumberingStartWith.Location = new System.Drawing.Point(172, 84);
+            this.numericUpDownNumberingStartWith.Name = "numericUpDownNumberingStartWith";
+            this.numericUpDownNumberingStartWith.Size = new System.Drawing.Size(61, 20);
+            this.numericUpDownNumberingStartWith.TabIndex = 4;
+            this.numericUpDownNumberingStartWith.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // SettingsForm
             // 
@@ -308,7 +380,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(274, 501);
+            this.ClientSize = new System.Drawing.Size(274, 618);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.labelPath);
@@ -329,6 +402,9 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberingStartWith)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -358,5 +434,11 @@
         private System.Windows.Forms.CheckBox checkBoxWriteColumnsLength;
         private System.Windows.Forms.CheckBox checkBoxWriteBeamsLength;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.CheckBox checkBoxEnablePlateNumbering;
+        private System.Windows.Forms.TextBox textBoxPlateNumberingParamName;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown numericUpDownNumberingStartWith;
+        private System.Windows.Forms.Label label8;
     }
 }
