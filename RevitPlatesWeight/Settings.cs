@@ -36,10 +36,11 @@ namespace RevitPlatesWeight
         public bool writeThickvalue = true;
         public bool writePlatesLengthWidth = false;
         public bool enablePlatesNumbering = false;
-        public string plateNumberingParamName = "Марка";
+        public string plateNumberingParamName = "О_Позиция";
         public int plateNumberingStartWith = 1;
         public bool writeBeamLength = false;
         public bool writeColumnLength = false;
+        public bool useOnlyVisibleOnCurrentView = true;
 
         private static string xmlPath = "";
         

@@ -103,13 +103,45 @@ namespace RevitPlatesWeight
 
         public override void WriteParameter(RVTDocument doc, string paramName, StorageType stype, object Value, bool rewrite)
         {
-            List<ElementId> paramIds = _subelem.GetAllParameters().Where(i => doc.GetElement(i).Name == paramName).ToList();
-            if (paramIds.Count == 0)
+            ElementId paramId = null;
+            List<ElementId> paramIds = _subelem.GetAllParameters().ToList();
+
+            foreach(ElementId curParamId in paramIds)
+            {
+                if(curParamId.IntegerValue > 0) //это общий параметр
+                {
+                    Element paramElement = doc.GetElement(curParamId);
+                    if(paramElement.Name == paramName)
+                    {
+                        paramId = curParamId;
+                        break;
+                    }
+                }
+                else //это builtin параметр
+                {
+                    BuiltInParameter bip = (BuiltInParameter)curParamId.IntegerValue;
+                    string builtinParamname = LabelUtils.GetLabelFor(bip);
+                    if(builtinParamname == paramName)
+                    {
+                        paramId = curParamId;
+                        break;
+                    }
+                }
+            }
+            /*
+#if !R2019
+            ElementId weightParamId = new ElementId(-1155141);
+            DoubleParameterValue dpv = _subelem.GetParameterValue(weightParamId) as DoubleParameterValue;
+            double weight = dpv.Value;
+#endif
+            */
+
+            if (paramId == null)
             {
                 TaskDialog.Show("Ошибка", "Нет параметра " + paramName);
                 throw new Exception("Нет параметра " + paramName);
             }
-            ElementId paramId = paramIds.First();
+            
 
             switch (stype)
             {
@@ -121,6 +153,9 @@ namespace RevitPlatesWeight
                     break;
                 case StorageType.String:
                     _subelem.SetParameterValue(paramId, new StringParameterValue((string)Value));
+                    break;
+                case StorageType.ElementId:
+                    _subelem.SetParameterValue(paramId, new ElementIdParameterValue((ElementId)Value));
                     break;
             }
         }

@@ -84,7 +84,7 @@ namespace RevitPlatesWeight
 
             WriteParameter(_doc, PlateNameParamName, StorageType.String, _thicknessName, true);
             WriteParameter(_doc, WeightParamName, StorageType.Double, Mass, true);
-            WriteParameter(_doc, MaterialNameParam, StorageType.String, MaterialName, true);
+            WriteParameter(_doc, MaterialNameParam, StorageType.ElementId, MaterialId, true);
             WriteParameter(_doc, VolumeParamName, StorageType.Double, Volume, true);
 
             if (sets.writeThickvalue)

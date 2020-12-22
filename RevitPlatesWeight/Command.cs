@@ -79,24 +79,43 @@ namespace RevitPlatesWeight
                 BuiltInCategory.OST_StructuralFraming,
                 BuiltInCategory.OST_StructuralColumns,
             };
-            List<Element> constrs = new FilteredElementCollector(doc)
+
+            FilteredElementCollector collectorConstrs = null;
+            FilteredElementCollector collectorPlatesFree = null;
+            FilteredElementCollector collectorJoints = null;
+
+            if (sets.useOnlyVisibleOnCurrentView)
+            {
+                collectorConstrs = new FilteredElementCollector(doc, calculateView.Id);
+                collectorPlatesFree = new FilteredElementCollector(doc, calculateView.Id);
+                collectorJoints = new FilteredElementCollector(doc, calculateView.Id);
+            }
+            else
+            {
+                collectorConstrs = new FilteredElementCollector(doc);
+                collectorPlatesFree = new FilteredElementCollector(doc);
+                collectorJoints = new FilteredElementCollector(doc);
+            }
+
+            
+            List<Element> constrs = collectorConstrs
                 .WhereElementIsNotElementType()
                 .WherePasses(new ElementMulticategoryFilter(constrCats))
                 .ToElements()
                 .ToList();
             Debug.WriteLine("Beams and columns found: " + constrs.Count.ToString());
 
-            List<Plate> plates = new FilteredElementCollector(doc)
+            List<Plate> plates = collectorPlatesFree
                 .WhereElementIsNotElementType()
                 .OfClass(typeof(SteelProxyElement))
                 .Cast<SteelProxyElement>()
                 .Where(i => i.GeomType == GeomObjectType.Plate)
                 .Select(i => new PlateFree(i, calculateView, sets))
                 .ToList<Plate>();
-            Debug.WriteLine("Free plates found: " + plates.Count.ToString());
+            Debug.WriteLine("PlatesFree found: " + plates.Count.ToString());
 
 
-            List<StructuralConnectionHandler> joints = new FilteredElementCollector(doc)
+            List<StructuralConnectionHandler> joints = collectorJoints
                 .WhereElementIsNotElementType()
                 .OfClass(typeof(StructuralConnectionHandler))
                 .Cast<StructuralConnectionHandler>()
@@ -179,7 +198,10 @@ namespace RevitPlatesWeight
                     foreach (Plate plate in curPlates)
                     {
                         plate.WriteValues(sets, doc);
-                        plate.WriteParameter(doc, sets.plateNumberingParamName, StorageType.String, platePosition.ToString(), true);
+                        if (sets.enablePlatesNumbering)
+                        {
+                            plate.WriteParameter(doc, sets.plateNumberingParamName, StorageType.String, platePosition.ToString(), true);
+                        }
                         platesCount++;
                     }
 

@@ -53,9 +53,12 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.checkBoxEnablePlateNumbering = new System.Windows.Forms.CheckBox();
             this.textBoxPlateNumberingParamName = new System.Windows.Forms.TextBox();
+            this.numericUpDownNumberingStartWith = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.numericUpDownNumberingStartWith = new System.Windows.Forms.NumericUpDown();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.radioAllProject = new System.Windows.Forms.RadioButton();
+            this.radioOnlyCurrentView = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numWeightType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numElemType)).BeginInit();
@@ -64,6 +67,7 @@
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberingStartWith)).BeginInit();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -108,8 +112,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox1.Controls.Add(this.checkBoxRewrite);
             this.groupBox1.Controls.Add(this.textBoxProfileName);
             this.groupBox1.Controls.Add(this.numWeightType);
@@ -119,7 +122,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 88);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(10);
             this.groupBox1.Size = new System.Drawing.Size(250, 181);
@@ -184,7 +187,7 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.Location = new System.Drawing.Point(106, 583);
+            this.buttonOk.Location = new System.Drawing.Point(106, 644);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 2;
@@ -196,7 +199,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(187, 583);
+            this.buttonCancel.Location = new System.Drawing.Point(187, 644);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 2;
@@ -206,9 +209,9 @@
             // 
             // label5
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 520);
+            this.label5.Location = new System.Drawing.Point(9, 586);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(197, 13);
             this.label5.TabIndex = 3;
@@ -216,8 +219,8 @@
             // 
             // labelPath
             // 
-            this.labelPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelPath.Location = new System.Drawing.Point(12, 538);
+            this.labelPath.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelPath.Location = new System.Drawing.Point(9, 604);
             this.labelPath.Name = "labelPath";
             this.labelPath.Size = new System.Drawing.Size(250, 39);
             this.labelPath.TabIndex = 3;
@@ -225,13 +228,12 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.checkBoxWritePlateLengthWidth);
             this.groupBox2.Controls.Add(this.checkBoxWriteThickness);
             this.groupBox2.Controls.Add(this.checkBoxWriteThickName);
-            this.groupBox2.Location = new System.Drawing.Point(12, 199);
+            this.groupBox2.Location = new System.Drawing.Point(12, 275);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(250, 112);
             this.groupBox2.TabIndex = 4;
@@ -281,10 +283,10 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox3.Controls.Add(this.checkBoxWriteColumnsLength);
             this.groupBox3.Controls.Add(this.checkBoxWriteBeamsLength);
-            this.groupBox3.Location = new System.Drawing.Point(12, 438);
+            this.groupBox3.Location = new System.Drawing.Point(12, 511);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(250, 72);
             this.groupBox3.TabIndex = 5;
@@ -313,12 +315,13 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox4.Controls.Add(this.checkBoxEnablePlateNumbering);
             this.groupBox4.Controls.Add(this.textBoxPlateNumberingParamName);
             this.groupBox4.Controls.Add(this.numericUpDownNumberingStartWith);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Location = new System.Drawing.Point(12, 317);
+            this.groupBox4.Location = new System.Drawing.Point(12, 393);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(250, 112);
             this.groupBox4.TabIndex = 6;
@@ -341,7 +344,19 @@
             this.textBoxPlateNumberingParamName.Name = "textBoxPlateNumberingParamName";
             this.textBoxPlateNumberingParamName.Size = new System.Drawing.Size(223, 20);
             this.textBoxPlateNumberingParamName.TabIndex = 1;
-            this.textBoxPlateNumberingParamName.Text = "Марка";
+            this.textBoxPlateNumberingParamName.Text = "О_Позиция";
+            // 
+            // numericUpDownNumberingStartWith
+            // 
+            this.numericUpDownNumberingStartWith.Location = new System.Drawing.Point(172, 84);
+            this.numericUpDownNumberingStartWith.Name = "numericUpDownNumberingStartWith";
+            this.numericUpDownNumberingStartWith.Size = new System.Drawing.Size(61, 20);
+            this.numericUpDownNumberingStartWith.TabIndex = 4;
+            this.numericUpDownNumberingStartWith.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label7
             // 
@@ -362,17 +377,39 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Начать с позиции:";
             // 
-            // numericUpDownNumberingStartWith
+            // groupBox5
             // 
-            this.numericUpDownNumberingStartWith.Location = new System.Drawing.Point(172, 84);
-            this.numericUpDownNumberingStartWith.Name = "numericUpDownNumberingStartWith";
-            this.numericUpDownNumberingStartWith.Size = new System.Drawing.Size(61, 20);
-            this.numericUpDownNumberingStartWith.TabIndex = 4;
-            this.numericUpDownNumberingStartWith.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.groupBox5.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.groupBox5.Controls.Add(this.radioOnlyCurrentView);
+            this.groupBox5.Controls.Add(this.radioAllProject);
+            this.groupBox5.Location = new System.Drawing.Point(12, 12);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(250, 70);
+            this.groupBox5.TabIndex = 7;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Обрабатывать элементы:";
+            // 
+            // radioAllProject
+            // 
+            this.radioAllProject.AutoSize = true;
+            this.radioAllProject.Location = new System.Drawing.Point(13, 42);
+            this.radioAllProject.Name = "radioAllProject";
+            this.radioAllProject.Size = new System.Drawing.Size(111, 17);
+            this.radioAllProject.TabIndex = 0;
+            this.radioAllProject.Text = "Во всём проекте";
+            this.radioAllProject.UseVisualStyleBackColor = true;
+            // 
+            // radioOnlyCurrentView
+            // 
+            this.radioOnlyCurrentView.AutoSize = true;
+            this.radioOnlyCurrentView.Checked = true;
+            this.radioOnlyCurrentView.Location = new System.Drawing.Point(13, 19);
+            this.radioOnlyCurrentView.Name = "radioOnlyCurrentView";
+            this.radioOnlyCurrentView.Size = new System.Drawing.Size(218, 17);
+            this.radioOnlyCurrentView.TabIndex = 0;
+            this.radioOnlyCurrentView.TabStop = true;
+            this.radioOnlyCurrentView.Text = "Только видимые на текущем 3D виде";
+            this.radioOnlyCurrentView.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -380,7 +417,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(274, 618);
+            this.ClientSize = new System.Drawing.Size(274, 679);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -405,6 +443,8 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberingStartWith)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -440,5 +480,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numericUpDownNumberingStartWith;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.RadioButton radioOnlyCurrentView;
+        private System.Windows.Forms.RadioButton radioAllProject;
     }
 }

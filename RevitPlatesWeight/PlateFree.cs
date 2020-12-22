@@ -1,5 +1,6 @@
 ﻿#region Using
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -52,10 +53,21 @@ namespace RevitPlatesWeight
 
         public PlateFree(SteelProxyElement plateFree, View calculateView, Settings sets)
         {
+            //Debug.WriteLine("Create PlateFree from steelproxy id" + plateFree.Id.IntegerValue.ToString());
             _spe = plateFree;
             materialId = _spe.get_Parameter(BuiltInParameter.STRUCTURAL_MATERIAL_PARAM).AsElementId();
+            //Debug.WriteLine("Material Id: " + materialId.IntegerValue.ToString());
             Options opt = new Options() { View = calculateView };
             GeometryElement geoElem = _spe.get_Geometry(opt);
+            if(geoElem == null)
+            {
+                string msg = "Не удается получить геометрию у элемента id " + plateFree.Id.IntegerValue.ToString()
+                    + ". Возможно, элемент отключен на виде.";
+                System.Windows.Forms.MessageBox.Show(msg);
+                Debug.WriteLine(msg);
+                throw new Exception(msg);
+            }
+           
             GeometryInstance geoIns = geoElem.First() as GeometryInstance;
             GeometryElement geosol = geoIns.GetInstanceGeometry();
             Solid sol = geosol.First() as Solid;
@@ -86,6 +98,13 @@ namespace RevitPlatesWeight
 
         public override void WriteParameter(RVTDocument doc, string paramName, StorageType stype, object Value, bool rewrite)
         {
+            /*
+#if !R2019
+            BuiltInParameter weightBuilinParam = (BuiltInParameter)(-1155141);
+            double weightTest = _spe.get_Parameter(weightBuilinParam).AsDouble();
+#endif
+            */
+
             Parameter param = _spe.LookupParameter(paramName);
             if (param == null)
             {

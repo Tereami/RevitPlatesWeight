@@ -39,6 +39,7 @@ namespace RevitPlatesWeight
             this.numericUpDownNumberingStartWith.Value = set.plateNumberingStartWith;
             this.checkBoxWriteBeamsLength.Checked = set.writeBeamLength;
             this.checkBoxWriteColumnsLength.Checked = set.writeColumnLength;
+            this.radioOnlyCurrentView.Checked = set.useOnlyVisibleOnCurrentView;
 
 #if R2019
             checkBoxWritePlateLengthWidth.Enabled = false;
@@ -70,7 +71,8 @@ namespace RevitPlatesWeight
                 plateNumberingStartWith = (int)numericUpDownNumberingStartWith.Value,
                 writeBeamLength = checkBoxWriteBeamsLength.Checked,
                 writeColumnLength = checkBoxWriteColumnsLength.Checked,
-                Rewrite = checkBoxRewrite.Checked
+                Rewrite = checkBoxRewrite.Checked,
+                useOnlyVisibleOnCurrentView = radioOnlyCurrentView.Checked
             };
 
             this.DialogResult = DialogResult.OK;
