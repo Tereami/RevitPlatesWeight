@@ -71,8 +71,8 @@ namespace RevitPlatesWeight
             Reference rf = _subelem.GetReference();
             FilerObject filerObj = AdvanceSteelUtils.GetFilerObject(doc, rf);
             Autodesk.AdvanceSteel.Modelling.Plate pl = filerObj as Autodesk.AdvanceSteel.Modelling.Plate;
-            _volume = pl.Volume / (1000000 * 29.504);
-
+            //_volume = pl.Volume / (1000000 * 29.504);
+            _volume = 1.0419239 * pl.Volume / (29504000);
 
             ParameterValue pv = _subelem.GetParameterValue(new ElementId(BuiltInParameter.STRUCTURAL_MATERIAL_PARAM));
             ElementIdParameterValue idpv = pv as ElementIdParameterValue;
