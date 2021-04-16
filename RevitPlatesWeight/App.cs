@@ -35,20 +35,12 @@ namespace RevitPlatesWeight
             assemblyPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
             assemblyFolder = System.IO.Path.GetDirectoryName(assemblyPath);
 
-            string tabName = "Weandrevit";
+            string tabName = "BIM-STARTER TEST";
             solutionName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
             try { application.CreateRibbonTab(tabName); } catch { }
 
             string panelName = "Steel";
             string buttonTitle = "Plate weight";
-            string toltip = "Calculate weight of plates that creates by Steel tab. F1 for help";
-
-            if(application.ControlledApplication.Language == LanguageType.Russian)
-            {
-                panelName = "Сталь";
-                buttonTitle = "Масса пластин";
-                toltip = "Вычисление массы пластин, созданных через вкладку Сталь. F1 для справки";
-            }
 
             RibbonPanel panel = application.CreateRibbonPanel(tabName, panelName);
 
@@ -58,15 +50,6 @@ namespace RevitPlatesWeight
                 assemblyPath,
                 "RevitPlatesWeight.Command")
                 ) as PushButton;
-
-            btn.LargeImage = PngImageSource("RevitPlatesWeight.Resources.Command_large.png");
-            btn.Image = PngImageSource("RevitPlatesWeight.Resources.Command_small.png");
-
-            btn.ToolTip = toltip;
-
-            string url = @"http://weandrevit.ru/plagin-massa-plastin-km/";
-            ContextualHelp chelp = new ContextualHelp(ContextualHelpType.Url, url);
-            btn.SetContextualHelp(chelp);
 
             return Result.Succeeded;
         }
@@ -85,19 +68,7 @@ namespace RevitPlatesWeight
                 solutionName + "." + Name)
                 ) as PushButton;
 
-            btn.LargeImage = PngImageSource("RevitPlatesWeight.Resources.Command_large.png");
-            btn.Image = PngImageSource("RevitPlatesWeight.Resources.Command_small.png");
             return btn;
-        }
-
-        private System.Windows.Media.ImageSource PngImageSource(string embeddedPathname)
-        {
-            System.IO.Stream st = this.GetType().Assembly.GetManifestResourceStream(embeddedPathname);
-            System.Windows.Media.Imaging.PngBitmapDecoder decoder = 
-                new System.Windows.Media.Imaging.PngBitmapDecoder(st,
-                System.Windows.Media.Imaging.BitmapCreateOptions.PreservePixelFormat,
-                System.Windows.Media.Imaging.BitmapCacheOption.Default);
-            return decoder.Frames[0];
         }
     }
 }

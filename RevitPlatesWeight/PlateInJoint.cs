@@ -18,27 +18,10 @@ More about solution / Подробнее: http://weandrevit.ru/plagin-massa-plas
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-
 using RVTDocument = Autodesk.Revit.DB.Document;
-using ASDocument = Autodesk.AdvanceSteel.DocumentManagement.Document;
-using RVTransaction = Autodesk.Revit.DB.Transaction;
-
-#if R2021
-using FabricationTransaction = Autodesk.SteelConnectionsDB.FabricationTransaction;
-#else
-using FabricationTransaction = RvtDwgAddon.FabricationTransaction;
-#endif
-
-using Autodesk.Revit.DB.Steel;
-using Autodesk.Revit.DB.Structure;
-using Autodesk.AdvanceSteel.DocumentManagement;
-using Autodesk.AdvanceSteel.Geometry;
-using Autodesk.AdvanceSteel.Modelling;
 using Autodesk.AdvanceSteel.CADAccess;
-using System.Security.Cryptography.X509Certificates;
 #endregion
 
 namespace RevitPlatesWeight

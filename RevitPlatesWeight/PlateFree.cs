@@ -1,29 +1,26 @@
-﻿#region Using
+﻿#region License
+/*Данный код опубликован под лицензией Creative Commons Attribution-ShareAlike.
+Разрешено использовать, распространять, изменять и брать данный код за основу для производных в коммерческих и
+некоммерческих целях, при условии указания авторства и если производные лицензируются на тех же условиях.
+Код поставляется "как есть". Автор не несет ответственности за возможные последствия использования.
+Зуев Александр, 2020, все права защищены.
+This code is listed under the Creative Commons Attribution-ShareAlike license.
+You may use, redistribute, remix, tweak, and build upon this work non-commercially and commercially,
+as long as you credit the author by linking back and license your new creations under the same terms.
+This code is provided 'as is'. Author disclaims any implied warranty.
+Zuev Aleksandr, 2020, all rigths reserved.
+
+More about solution / Подробнее: http://weandrevit.ru/plagin-massa-plastin-km/
+*/
+#endregion
+#region Using
 using System;
 using System.Diagnostics;
-using System.Collections.Generic;
 using System.Linq;
-
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-
 using RVTDocument = Autodesk.Revit.DB.Document;
-using ASDocument = Autodesk.AdvanceSteel.DocumentManagement.Document;
-using RVTransaction = Autodesk.Revit.DB.Transaction;
-
-#if R2021
-using FabricationTransaction = Autodesk.SteelConnectionsDB.FabricationTransaction;
-#else
-using FabricationTransaction = RvtDwgAddon.FabricationTransaction;
-#endif
-
 using Autodesk.Revit.DB.Steel;
-using Autodesk.Revit.DB.Structure;
-using Autodesk.AdvanceSteel.DocumentManagement;
-using Autodesk.AdvanceSteel.Geometry;
-using Autodesk.AdvanceSteel.Modelling;
-using Autodesk.AdvanceSteel.CADAccess;
-using System.Security.Cryptography.X509Certificates;
 #endregion
 
 namespace RevitPlatesWeight
@@ -59,7 +56,7 @@ namespace RevitPlatesWeight
             //Debug.WriteLine("Material Id: " + materialId.IntegerValue.ToString());
             Options opt = new Options() { View = calculateView };
             GeometryElement geoElem = _spe.get_Geometry(opt);
-            if(geoElem == null)
+            if (geoElem == null)
             {
                 string msg = "Не удается получить геометрию у элемента id " + plateFree.Id.IntegerValue.ToString()
                     + ". Возможно, элемент отключен на виде.";
@@ -67,7 +64,7 @@ namespace RevitPlatesWeight
                 Debug.WriteLine(msg);
                 throw new Exception(msg);
             }
-           
+
             GeometryInstance geoIns = geoElem.First() as GeometryInstance;
             GeometryElement geosol = geoIns.GetInstanceGeometry();
             Solid sol = geosol.First() as Solid;

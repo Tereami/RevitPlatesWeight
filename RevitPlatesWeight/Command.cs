@@ -18,15 +18,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
-
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-
 using RVTDocument = Autodesk.Revit.DB.Document;
 using ASDocument = Autodesk.AdvanceSteel.DocumentManagement.Document;
 using RVTransaction = Autodesk.Revit.DB.Transaction;
 
-#if R2021
+#if R2021 || R2022
 using FabricationTransaction = Autodesk.SteelConnectionsDB.FabricationTransaction;
 #else
 using FabricationTransaction = RvtDwgAddon.FabricationTransaction;
@@ -34,11 +32,6 @@ using FabricationTransaction = RvtDwgAddon.FabricationTransaction;
 
 using Autodesk.Revit.DB.Steel;
 using Autodesk.Revit.DB.Structure;
-using Autodesk.AdvanceSteel.DocumentManagement;
-using Autodesk.AdvanceSteel.Geometry;
-using Autodesk.AdvanceSteel.Modelling;
-using Autodesk.AdvanceSteel.CADAccess;
-using System.Security.Cryptography.X509Certificates;
 #endregion
 
 namespace RevitPlatesWeight
@@ -50,19 +43,16 @@ namespace RevitPlatesWeight
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             Debug.Listeners.Clear();
-            Debug.Listeners.Add(new Logger());
-            Debug.WriteLine("KM parametrisation start");
+            Debug.Listeners.Add(new RbsLogger.Logger("SteelParametrisation"));
             int revitVersionNumber = int.Parse(commandData.Application.Application.VersionNumber);
             if (revitVersionNumber < 2019)
             {
                 TaskDialog.Show("Ошибка", "Функция доступна только в Revit 2019 и выше!");
-                Debug.WriteLine("Incorect Revit version");
+                Debug.WriteLine("Unsupportable Revit version");
                 return Result.Cancelled;
             }
 
-
             Settings sets = Settings.Activate();
-
             int platesCount = 0;
 
             RVTDocument doc = commandData.Application.ActiveUIDocument.Document;

@@ -13,6 +13,7 @@ Zuev Aleksandr, 2020, all rigths reserved.
 More about solution / Подробнее: http://weandrevit.ru/plagin-massa-plastin-km/
 */
 #endregion
+#region usings
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
 using System.Diagnostics;
+#endregion
 
 namespace RevitPlatesWeight
 {
