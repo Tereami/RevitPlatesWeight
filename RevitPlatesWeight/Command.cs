@@ -24,10 +24,10 @@ using RVTDocument = Autodesk.Revit.DB.Document;
 using ASDocument = Autodesk.AdvanceSteel.DocumentManagement.Document;
 using RVTransaction = Autodesk.Revit.DB.Transaction;
 
-#if R2021 || R2022
-using FabricationTransaction = Autodesk.SteelConnectionsDB.FabricationTransaction;
-#else
+#if R2019 || R2020
 using FabricationTransaction = RvtDwgAddon.FabricationTransaction;
+#else
+using FabricationTransaction = Autodesk.SteelConnectionsDB.FabricationTransaction;
 #endif
 
 using Autodesk.Revit.DB.Steel;
