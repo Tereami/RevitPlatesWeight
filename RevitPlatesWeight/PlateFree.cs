@@ -58,7 +58,7 @@ namespace RevitPlatesWeight
             GeometryElement geoElem = _spe.get_Geometry(opt);
             if (geoElem == null)
             {
-                string msg = "Не удается получить геометрию у элемента id " + plateFree.Id.IntegerValue.ToString()
+                string msg = "Не удается получить геометрию у элемента id " + plateFree.Id.ToString()
                     + ". Возможно, элемент отключен на виде.";
                 System.Windows.Forms.MessageBox.Show(msg);
                 Debug.WriteLine(msg);
@@ -87,7 +87,7 @@ namespace RevitPlatesWeight
             Parameter plateParam = plateFree.get_Parameter(param);
             if (plateParam == null || !plateParam.HasValue)
             {
-                throw new Exception("Нет параметра " + Enum.GetName(typeof(DimensionKind), kind) + " в пластине " + plateFree.Id.IntegerValue.ToString());
+                throw new Exception("Нет параметра " + Enum.GetName(typeof(DimensionKind), kind) + " в пластине " + plateFree.Id.ToString());
             }
             double dim = plateParam.AsDouble();
             return dim;

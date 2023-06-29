@@ -78,7 +78,7 @@ namespace RevitPlatesWeight
             ParameterValue lengthParamValue = plateAsSubelem.GetParameterValue(new ElementId(param));
             if (lengthParamValue == null)
             {
-                throw new Exception("Нет параметра " + Enum.GetName(typeof(DimensionKind), kind) + " в пластине " + plateAsSubelem.Element.Id.IntegerValue.ToString());
+                throw new Exception("Нет параметра " + Enum.GetName(typeof(DimensionKind), kind) + " в пластине " + plateAsSubelem.Element.Id.ToString());
             }
             DoubleParameterValue lengthDoubleValue = lengthParamValue as DoubleParameterValue;
             return lengthDoubleValue.Value;
@@ -91,7 +91,12 @@ namespace RevitPlatesWeight
 
             foreach(ElementId curParamId in paramIds)
             {
-                if(curParamId.IntegerValue > 0) //это общий параметр
+#if R2017 || R2018 || R2019 || R2020 || R2021 || R2022 || R2023
+                int curParamIdValue = curParamId.IntegerValue;
+#else
+                long curParamIdValue = curParamId.Value;
+#endif
+                if (curParamIdValue > 0) //это общий параметр
                 {
                     Element paramElement = doc.GetElement(curParamId);
                     if(paramElement.Name == paramName)
@@ -102,7 +107,7 @@ namespace RevitPlatesWeight
                 }
                 else //это builtin параметр
                 {
-                    BuiltInParameter bip = (BuiltInParameter)curParamId.IntegerValue;
+                    BuiltInParameter bip = (BuiltInParameter)curParamIdValue;
                     string builtinParamname = LabelUtils.GetLabelFor(bip);
                     if(builtinParamname == paramName)
                     {
