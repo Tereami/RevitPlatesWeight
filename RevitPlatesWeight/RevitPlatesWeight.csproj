@@ -227,7 +227,7 @@
         </Reference>
       </ItemGroup>
     </When>
-	<When Condition=" '$(Configuration)'=='R2023' ">
+    <When Condition=" '$(Configuration)'=='R2023' ">
       <ItemGroup>
         <Reference Include="RevitAPI">
           <HintPath>C:\Program Files\Autodesk\Revit 2023\RevitAPI.dll</HintPath>
@@ -263,7 +263,7 @@
         </Reference>
       </ItemGroup>
     </When>
-	<When Condition=" '$(Configuration)'=='R2024' ">
+    <When Condition=" '$(Configuration)'=='R2024' ">
       <ItemGroup>
         <Reference Include="RevitAPI">
           <HintPath>C:\Program Files\Autodesk\Revit 2024\RevitAPI.dll</HintPath>
@@ -305,6 +305,7 @@
     <Compile Include="App.cs" />
     <Compile Include="BalloonTip.cs" />
     <Compile Include="Command.cs" />
+    <Compile Include="Geometry.cs" />
     <Compile Include="Plate.cs" />
     <Compile Include="MaterialUtils.cs" />
     <Compile Include="PlateFree.cs" />

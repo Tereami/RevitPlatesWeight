@@ -172,16 +172,26 @@ namespace RevitPlatesWeight
                         {
                             lengthParam = elem.get_Parameter(BuiltInParameter.STRUCTURAL_FRAME_CUT_LENGTH);
                         }
-                        if (lengthParam == null) continue;
-                        if (!lengthParam.HasValue) continue;
-                        double cutLength = lengthParam.AsDouble();
+                        double? cutLength = null;
+                        if (lengthParam != null && lengthParam.HasValue)
+                        {
+                            cutLength = lengthParam.AsDouble();
+                        }
+                        else
+                        {
+                            cutLength = Geometry.FindTheLongestCurveLength(doc.ActiveView, elem);
+                        }
+                        if (cutLength == null || cutLength == 0) continue;
 
                         Parameter trueLengthParam = elem.LookupParameter("Рзм.ДлинаБалкиИстинная");
-                        if (trueLengthParam == null) continue;
-                        if (!trueLengthParam.HasValue) continue;
+                        if (trueLengthParam == null || !trueLengthParam.HasValue)
+                        {
+                            Debug.WriteLine("Нет параметр Рзм.ДлинаБалкиИстинная");
+                            continue;
+                        }
                         double trueLength = trueLengthParam.AsDouble();
 
-                        double delta = cutLength - trueLength;
+                        double delta = (double)cutLength - trueLength;
 
                         Parameter deltaParam = elem.LookupParameter("Рзм.КорректировкаДлины");
                         if (deltaParam == null) continue;
