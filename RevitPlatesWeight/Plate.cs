@@ -58,13 +58,13 @@ namespace RevitPlatesWeight
         public string MaterialName;
 
 
-        public void CalculateValues(RVTDocument doc)
+        public void CalculateValues(RVTDocument doc, Settings sets)
         {
             double density = MaterialUtils.GetMaterialDensity(doc, MaterialId);
             MaterialName = doc.GetElement(MaterialId).Name;
 
             _mass = Volume * density;
-            _thicknessName = "-" + (Thickness * 304.8).ToString("F0");
+            _thicknessName = sets.platePrefix + (Thickness * 304.8).ToString("F0");
         }
 
 

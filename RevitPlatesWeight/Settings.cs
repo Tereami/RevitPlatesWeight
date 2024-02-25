@@ -29,13 +29,14 @@ namespace RevitPlatesWeight
     [Serializable]
     public class Settings
     {
-        public string ProfileNameValue = "Сталь листовая (ГОСТ 19903-2015)";
+        public string ProfileNameValue = "Прокат листовой горячекатаный (ГОСТ 19903-2015)";
         public int GroupConstParamValue = 10;
         public int ElementTypeParamValue = 6;
         public int ElementWeightTypeValue = 5;
         public bool Rewrite = true;
         public bool writeThickName = true;
         public bool writeThickvalue = true;
+        public string platePrefix = "—";
         public bool writePlatesLengthWidth = false;
         public bool enablePlatesNumbering = false;
         public string plateNumberingParamName = "О_Позиция";
@@ -90,7 +91,7 @@ namespace RevitPlatesWeight
             if(form.DialogResult != System.Windows.Forms.DialogResult.OK)
             {
                 Debug.WriteLine("Setting form cancelled");
-                throw new Exception("Отменено");
+                return null;
             }
             s = form.newSets;
             Debug.WriteLine("Settings success");

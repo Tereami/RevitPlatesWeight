@@ -44,8 +44,10 @@
             this.labelPath = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.textBoxPlatePrefix = new System.Windows.Forms.TextBox();
             this.checkBoxWritePlateLengthWidth = new System.Windows.Forms.CheckBox();
             this.checkBoxWriteThickness = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.checkBoxWriteThickName = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.checkBoxWriteColumnsLength = new System.Windows.Forms.CheckBox();
@@ -57,8 +59,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.radioAllProject = new System.Windows.Forms.RadioButton();
             this.radioOnlyCurrentView = new System.Windows.Forms.RadioButton();
+            this.radioAllProject = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numWeightType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numElemType)).BeginInit();
@@ -187,7 +189,7 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.Location = new System.Drawing.Point(106, 644);
+            this.buttonOk.Location = new System.Drawing.Point(106, 687);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 2;
@@ -199,7 +201,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(187, 644);
+            this.buttonCancel.Location = new System.Drawing.Point(187, 687);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 2;
@@ -211,7 +213,7 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 586);
+            this.label5.Location = new System.Drawing.Point(9, 622);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(197, 13);
             this.label5.TabIndex = 3;
@@ -220,7 +222,7 @@
             // labelPath
             // 
             this.labelPath.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.labelPath.Location = new System.Drawing.Point(9, 604);
+            this.labelPath.Location = new System.Drawing.Point(9, 640);
             this.labelPath.Name = "labelPath";
             this.labelPath.Size = new System.Drawing.Size(250, 39);
             this.labelPath.TabIndex = 3;
@@ -230,12 +232,14 @@
             // 
             this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.textBoxPlatePrefix);
             this.groupBox2.Controls.Add(this.checkBoxWritePlateLengthWidth);
             this.groupBox2.Controls.Add(this.checkBoxWriteThickness);
+            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.checkBoxWriteThickName);
             this.groupBox2.Location = new System.Drawing.Point(12, 275);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(250, 112);
+            this.groupBox2.Size = new System.Drawing.Size(250, 148);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Размеры пластины";
@@ -243,16 +247,24 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(28, 86);
+            this.label6.Location = new System.Drawing.Point(27, 125);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(139, 13);
             this.label6.TabIndex = 2;
             this.label6.Text = "Только Revit 2020 и выше";
             // 
+            // textBoxPlatePrefix
+            // 
+            this.textBoxPlatePrefix.Location = new System.Drawing.Point(13, 79);
+            this.textBoxPlatePrefix.Name = "textBoxPlatePrefix";
+            this.textBoxPlatePrefix.Size = new System.Drawing.Size(223, 20);
+            this.textBoxPlatePrefix.TabIndex = 1;
+            this.textBoxPlatePrefix.Text = "—";
+            // 
             // checkBoxWritePlateLengthWidth
             // 
             this.checkBoxWritePlateLengthWidth.AutoSize = true;
-            this.checkBoxWritePlateLengthWidth.Location = new System.Drawing.Point(13, 66);
+            this.checkBoxWritePlateLengthWidth.Location = new System.Drawing.Point(13, 105);
             this.checkBoxWritePlateLengthWidth.Name = "checkBoxWritePlateLengthWidth";
             this.checkBoxWritePlateLengthWidth.Size = new System.Drawing.Size(215, 17);
             this.checkBoxWritePlateLengthWidth.TabIndex = 1;
@@ -268,6 +280,15 @@
             this.checkBoxWriteThickness.TabIndex = 0;
             this.checkBoxWriteThickness.Text = "Заполнить Рзм.Толщина";
             this.checkBoxWriteThickness.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(10, 63);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(156, 13);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Префикс имени для пластин:";
             // 
             // checkBoxWriteThickName
             // 
@@ -286,7 +307,7 @@
             this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox3.Controls.Add(this.checkBoxWriteColumnsLength);
             this.groupBox3.Controls.Add(this.checkBoxWriteBeamsLength);
-            this.groupBox3.Location = new System.Drawing.Point(12, 511);
+            this.groupBox3.Location = new System.Drawing.Point(12, 547);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(250, 72);
             this.groupBox3.TabIndex = 5;
@@ -321,7 +342,7 @@
             this.groupBox4.Controls.Add(this.numericUpDownNumberingStartWith);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Location = new System.Drawing.Point(12, 393);
+            this.groupBox4.Location = new System.Drawing.Point(12, 429);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(250, 112);
             this.groupBox4.TabIndex = 6;
@@ -389,16 +410,6 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Обрабатывать элементы:";
             // 
-            // radioAllProject
-            // 
-            this.radioAllProject.AutoSize = true;
-            this.radioAllProject.Location = new System.Drawing.Point(13, 42);
-            this.radioAllProject.Name = "radioAllProject";
-            this.radioAllProject.Size = new System.Drawing.Size(111, 17);
-            this.radioAllProject.TabIndex = 0;
-            this.radioAllProject.Text = "Во всём проекте";
-            this.radioAllProject.UseVisualStyleBackColor = true;
-            // 
             // radioOnlyCurrentView
             // 
             this.radioOnlyCurrentView.AutoSize = true;
@@ -411,13 +422,23 @@
             this.radioOnlyCurrentView.Text = "Только видимые на текущем 3D виде";
             this.radioOnlyCurrentView.UseVisualStyleBackColor = true;
             // 
+            // radioAllProject
+            // 
+            this.radioAllProject.AutoSize = true;
+            this.radioAllProject.Location = new System.Drawing.Point(13, 42);
+            this.radioAllProject.Name = "radioAllProject";
+            this.radioAllProject.Size = new System.Drawing.Size(111, 17);
+            this.radioAllProject.TabIndex = 0;
+            this.radioAllProject.Text = "Во всём проекте";
+            this.radioAllProject.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(274, 679);
+            this.ClientSize = new System.Drawing.Size(274, 722);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -483,5 +504,7 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.RadioButton radioOnlyCurrentView;
         private System.Windows.Forms.RadioButton radioAllProject;
+        private System.Windows.Forms.TextBox textBoxPlatePrefix;
+        private System.Windows.Forms.Label label9;
     }
 }

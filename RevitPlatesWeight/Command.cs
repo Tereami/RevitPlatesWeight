@@ -53,6 +53,7 @@ namespace RevitPlatesWeight
             }
 
             Settings sets = Settings.Activate();
+            if (sets == null) return Result.Cancelled;
             int platesCount = 0;
 
             RVTDocument doc = commandData.Application.ActiveUIDocument.Document;
@@ -65,10 +66,7 @@ namespace RevitPlatesWeight
                 return Result.Failed;
             }
 
-            List<BuiltInCategory> constrCats = new List<BuiltInCategory> {
-                BuiltInCategory.OST_StructuralFraming,
-                BuiltInCategory.OST_StructuralColumns,
-            };
+
 
             FilteredElementCollector collectorConstrs = null;
             FilteredElementCollector collectorPlatesFree = null;
@@ -87,13 +85,7 @@ namespace RevitPlatesWeight
                 collectorJoints = new FilteredElementCollector(doc);
             }
 
-            
-            List<Element> constrs = collectorConstrs
-                .WhereElementIsNotElementType()
-                .WherePasses(new ElementMulticategoryFilter(constrCats))
-                .ToElements()
-                .ToList();
-            Debug.WriteLine("Beams and columns found: " + constrs.Count.ToString());
+
 
             List<Plate> plates = collectorPlatesFree
                 .WhereElementIsNotElementType()
@@ -123,94 +115,112 @@ namespace RevitPlatesWeight
                         if (subelem.Category.Id != new ElementId(BuiltInCategory.OST_StructConnectionPlates)) continue;
                         PlateInJoint pij = new PlateInJoint(subelem, doc, sets);
                         plates.Add(pij);
-
                     }
                 }
                 Debug.WriteLine("Fabrication transaction success");
             }
 
-            foreach (Plate plate in plates)
-            {
-                plate.CalculateValues(doc);
-            }
 
             Dictionary<string, List<Plate>> platesGrouped = plates
             .GroupBy(i => i.GetKey(sets.enablePlatesNumbering, sets.writePlatesLengthWidth))
             .ToDictionary(j => j.Key, j => j.ToList());
             Debug.WriteLine("Plates groups: " + platesGrouped.Keys.Count.ToString());
 
-
             using (RVTransaction t = new RVTransaction(doc))
             {
-                t.Start("КМ параметризация");
-                Debug.WriteLine("Start beams and columns parametrisation");
-
-                foreach (Element elem in constrs)
-                {
-                    Parameter lengthParam = null;
-
-                    if (elem.Category.Id == new ElementId(BuiltInCategory.OST_StructuralColumns))
-                    {
-#if !R2019
-                        lengthParam = elem.get_Parameter(BuiltInParameter.STEEL_ELEM_CUT_LENGTH);
-#endif
-                    }
-
-                    else if (elem.Category.Id == new ElementId(BuiltInCategory.OST_StructuralFraming))
-                    {
-                        lengthParam = elem.get_Parameter(BuiltInParameter.STRUCTURAL_FRAME_CUT_LENGTH);
-                    }
-                    if (lengthParam == null) continue;
-                    if (!lengthParam.HasValue) continue;
-                    double cutLength = lengthParam.AsDouble();
-
-                    Parameter trueLengthParam = elem.LookupParameter("Рзм.ДлинаБалкиИстинная");
-                    if (trueLengthParam == null) continue;
-                    if (!trueLengthParam.HasValue) continue;
-                    double trueLength = trueLengthParam.AsDouble();
-
-                    double delta = cutLength - trueLength;
-
-                    Parameter deltaParam = elem.LookupParameter("Рзм.КорректировкаДлины");
-                    if (deltaParam == null) continue;
-                    if (deltaParam.IsReadOnly) continue;
-
-                    deltaParam.Set(delta);
-                }
-
+                t.Start("Plates weight");
                 Debug.WriteLine("Start plates parametrisation");
-                int platePosition = sets.plateNumberingStartWith;
-                foreach (var kvp in platesGrouped)
+                foreach (Plate plate in plates)
                 {
-                    List<Plate> curPlates = kvp.Value;
-                    Debug.WriteLine("Plate group key: " + kvp.Key);
+                    plate.CalculateValues(doc, sets);
+                    plate.WriteValues(sets, doc);
+                    platesCount++;
+                }
+                t.Commit();
+                Debug.WriteLine("Plates parametrisation completed");
+            }
 
-                    foreach (Plate plate in curPlates)
+
+            if (sets.writeBeamLength || sets.writeColumnLength)
+            {
+                using (RVTransaction t = new RVTransaction(doc))
+                {
+                    t.Start("КМ параметризация");
+                    Debug.WriteLine("Start beams and columns parametrisation");
+
+                    List<BuiltInCategory> constrCats = new List<BuiltInCategory> {
+                        BuiltInCategory.OST_StructuralFraming,
+                        BuiltInCategory.OST_StructuralColumns,
+                    };
+                    List<Element> constrs = collectorConstrs
+                        .WhereElementIsNotElementType()
+                        .WherePasses(new ElementMulticategoryFilter(constrCats))
+                        .ToElements()
+                        .ToList();
+                    Debug.WriteLine("Beams and columns found: " + constrs.Count.ToString());
+                    foreach (Element elem in constrs)
                     {
-                        plate.WriteValues(sets, doc);
-                        if (sets.enablePlatesNumbering)
+                        Parameter lengthParam = null;
+
+                        if (elem.Category.Id == new ElementId(BuiltInCategory.OST_StructuralColumns))
+                        {
+#if !R2019
+                            lengthParam = elem.get_Parameter(BuiltInParameter.STEEL_ELEM_CUT_LENGTH);
+#endif
+                        }
+                        else if (elem.Category.Id == new ElementId(BuiltInCategory.OST_StructuralFraming))
+                        {
+                            lengthParam = elem.get_Parameter(BuiltInParameter.STRUCTURAL_FRAME_CUT_LENGTH);
+                        }
+                        if (lengthParam == null) continue;
+                        if (!lengthParam.HasValue) continue;
+                        double cutLength = lengthParam.AsDouble();
+
+                        Parameter trueLengthParam = elem.LookupParameter("Рзм.ДлинаБалкиИстинная");
+                        if (trueLengthParam == null) continue;
+                        if (!trueLengthParam.HasValue) continue;
+                        double trueLength = trueLengthParam.AsDouble();
+
+                        double delta = cutLength - trueLength;
+
+                        Parameter deltaParam = elem.LookupParameter("Рзм.КорректировкаДлины");
+                        if (deltaParam == null) continue;
+                        if (deltaParam.IsReadOnly) continue;
+
+                        deltaParam.Set(delta);
+                    }
+
+                    t.Commit();
+                    Debug.WriteLine("Beams and columns finished");
+                }
+            }
+
+            if (sets.enablePlatesNumbering)
+            {
+                using (RVTransaction t = new RVTransaction(doc))
+                {
+                    t.Start("Plates numbering");
+                    Debug.WriteLine("Start plates numbering");
+                    int platePosition = sets.plateNumberingStartWith;
+                    foreach (var kvp in platesGrouped)
+                    {
+                        List<Plate> curPlates = kvp.Value;
+                        Debug.WriteLine("Plate group key: " + kvp.Key);
+
+                        foreach (Plate plate in curPlates)
                         {
                             plate.WriteParameter(doc, sets.plateNumberingParamName, StorageType.String, platePosition.ToString(), true);
                         }
-                        platesCount++;
+                        platePosition++;
                     }
-
-                    platePosition++;
+                    t.Commit();
+                    Debug.WriteLine("Plates numbering finished");
                 }
-
-                t.Commit();
-                Debug.WriteLine("Revit transaction finished");
             }
 
             BalloonTip.Show("Успешно", "Обработано пластин: " + platesCount.ToString());
             sets.Save();
             return Result.Succeeded;
         }
-
-
-
-
-
-
     }
 }

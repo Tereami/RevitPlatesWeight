@@ -33,6 +33,7 @@ namespace RevitPlatesWeight
             this.checkBoxRewrite.Checked = set.Rewrite;
             this.checkBoxWriteThickName.Checked = set.writeThickName;
             this.checkBoxWriteThickness.Checked = set.writeThickvalue;
+            this.textBoxPlatePrefix.Text = set.platePrefix;
             this.checkBoxWritePlateLengthWidth.Checked = set.writePlatesLengthWidth;
             this.checkBoxEnablePlateNumbering.Checked = set.enablePlatesNumbering;
             this.textBoxPlateNumberingParamName.Text = set.plateNumberingParamName;
@@ -65,6 +66,7 @@ namespace RevitPlatesWeight
                 ElementWeightTypeValue = (int)numWeightType.Value,
                 writeThickName = checkBoxWriteThickName.Checked,
                 writeThickvalue= checkBoxWriteThickness.Checked,
+                platePrefix = textBoxPlatePrefix.Text,
                 writePlatesLengthWidth = checkBoxWritePlateLengthWidth.Checked,
                 enablePlatesNumbering = checkBoxEnablePlateNumbering.Checked,
                 plateNumberingParamName = textBoxPlateNumberingParamName.Text,
