@@ -42,13 +42,13 @@ namespace RevitPlatesWeight
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            Debug.Listeners.Clear();
-            Debug.Listeners.Add(new RbsLogger.Logger("SteelParametrisation"));
+            Trace.Listeners.Clear();
+            Trace.Listeners.Add(new RbsLogger.Logger("SteelParametrisation"));
             int revitVersionNumber = int.Parse(commandData.Application.Application.VersionNumber);
             if (revitVersionNumber < 2019)
             {
                 TaskDialog.Show("Ошибка", "Функция доступна только в Revit 2019 и выше!");
-                Debug.WriteLine("Unsupportable Revit version");
+                Trace.WriteLine("Unsupportable Revit version");
                 return Result.Cancelled;
             }
 
@@ -62,7 +62,7 @@ namespace RevitPlatesWeight
             if (!(calculateView is View3D) || calculateView.DetailLevel != ViewDetailLevel.Fine)
             {
                 TaskDialog.Show("Ошибка", "Перед запуском плагина перейдите на 3D вид с включенным Высоким уровнем детализации");
-                Debug.WriteLine("Unable to use view " + calculateView.Name);
+                Trace.WriteLine("Unable to use view " + calculateView.Name);
                 return Result.Failed;
             }
 
@@ -94,7 +94,7 @@ namespace RevitPlatesWeight
                 .Where(i => i.GeomType == GeomObjectType.Plate)
                 .Select(i => new PlateFree(i, calculateView, sets))
                 .ToList<Plate>();
-            Debug.WriteLine("PlatesFree found: " + plates.Count.ToString());
+            Trace.WriteLine("PlatesFree found: " + plates.Count.ToString());
 
 
             List<StructuralConnectionHandler> joints = collectorJoints
@@ -102,11 +102,11 @@ namespace RevitPlatesWeight
                 .OfClass(typeof(StructuralConnectionHandler))
                 .Cast<StructuralConnectionHandler>()
                 .ToList();
-            Debug.WriteLine("Joints found: " + joints.Count.ToString());
+            Trace.WriteLine("Joints found: " + joints.Count.ToString());
 
             using (FabricationTransaction t = new FabricationTransaction(doc, true, "Test plates"))
             {
-                Debug.WriteLine("Start fabrication transaction");
+                Trace.WriteLine("Start fabrication transaction");
                 foreach (StructuralConnectionHandler joint in joints)
                 {
                     List<Subelement> subelems = joint.GetSubelements().ToList();
@@ -117,19 +117,19 @@ namespace RevitPlatesWeight
                         plates.Add(pij);
                     }
                 }
-                Debug.WriteLine("Fabrication transaction success");
+                Trace.WriteLine("Fabrication transaction success");
             }
 
 
             Dictionary<string, List<Plate>> platesGrouped = plates
             .GroupBy(i => i.GetKey(sets.enablePlatesNumbering, sets.writePlatesLengthWidth))
             .ToDictionary(j => j.Key, j => j.ToList());
-            Debug.WriteLine("Plates groups: " + platesGrouped.Keys.Count.ToString());
+            Trace.WriteLine("Plates groups: " + platesGrouped.Keys.Count.ToString());
 
             using (RVTransaction t = new RVTransaction(doc))
             {
                 t.Start("Plates weight");
-                Debug.WriteLine("Start plates parametrisation");
+                Trace.WriteLine("Start plates parametrisation");
                 foreach (Plate plate in plates)
                 {
                     plate.CalculateValues(doc, sets);
@@ -137,7 +137,7 @@ namespace RevitPlatesWeight
                     platesCount++;
                 }
                 t.Commit();
-                Debug.WriteLine("Plates parametrisation completed");
+                Trace.WriteLine("Plates parametrisation completed");
             }
 
 
@@ -146,7 +146,7 @@ namespace RevitPlatesWeight
                 using (RVTransaction t = new RVTransaction(doc))
                 {
                     t.Start("КМ параметризация");
-                    Debug.WriteLine("Start beams and columns parametrisation");
+                    Trace.WriteLine("Start beams and columns parametrisation");
 
                     List<BuiltInCategory> constrCats = new List<BuiltInCategory> {
                         BuiltInCategory.OST_StructuralFraming,
@@ -157,7 +157,7 @@ namespace RevitPlatesWeight
                         .WherePasses(new ElementMulticategoryFilter(constrCats))
                         .ToElements()
                         .ToList();
-                    Debug.WriteLine("Beams and columns found: " + constrs.Count.ToString());
+                    Trace.WriteLine("Beams and columns found: " + constrs.Count.ToString());
                     foreach (Element elem in constrs)
                     {
                         Parameter lengthParam = null;
@@ -186,7 +186,7 @@ namespace RevitPlatesWeight
                         Parameter trueLengthParam = elem.LookupParameter("Рзм.ДлинаБалкиИстинная");
                         if (trueLengthParam == null || !trueLengthParam.HasValue)
                         {
-                            Debug.WriteLine("Нет параметр Рзм.ДлинаБалкиИстинная");
+                            Trace.WriteLine("Нет параметр Рзм.ДлинаБалкиИстинная");
                             continue;
                         }
                         double trueLength = trueLengthParam.AsDouble();
@@ -201,7 +201,7 @@ namespace RevitPlatesWeight
                     }
 
                     t.Commit();
-                    Debug.WriteLine("Beams and columns finished");
+                    Trace.WriteLine("Beams and columns finished");
                 }
             }
 
@@ -210,12 +210,12 @@ namespace RevitPlatesWeight
                 using (RVTransaction t = new RVTransaction(doc))
                 {
                     t.Start("Plates numbering");
-                    Debug.WriteLine("Start plates numbering");
+                    Trace.WriteLine("Start plates numbering");
                     int platePosition = sets.plateNumberingStartWith;
                     foreach (var kvp in platesGrouped)
                     {
                         List<Plate> curPlates = kvp.Value;
-                        Debug.WriteLine("Plate group key: " + kvp.Key);
+                        Trace.WriteLine("Plate group key: " + kvp.Key);
 
                         foreach (Plate plate in curPlates)
                         {
@@ -224,7 +224,7 @@ namespace RevitPlatesWeight
                         platePosition++;
                     }
                     t.Commit();
-                    Debug.WriteLine("Plates numbering finished");
+                    Trace.WriteLine("Plates numbering finished");
                 }
             }
 

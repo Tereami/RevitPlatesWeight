@@ -50,10 +50,10 @@ namespace RevitPlatesWeight
 
         public PlateFree(SteelProxyElement plateFree, View calculateView, Settings sets)
         {
-            //Debug.WriteLine("Create PlateFree from steelproxy id" + plateFree.Id.IntegerValue.ToString());
+            //Trace.WriteLine("Create PlateFree from steelproxy id" + plateFree.Id.IntegerValue.ToString());
             _spe = plateFree;
             materialId = _spe.get_Parameter(BuiltInParameter.STRUCTURAL_MATERIAL_PARAM).AsElementId();
-            //Debug.WriteLine("Material Id: " + materialId.IntegerValue.ToString());
+            //Trace.WriteLine("Material Id: " + materialId.IntegerValue.ToString());
             Options opt = new Options() { View = calculateView };
             GeometryElement geoElem = _spe.get_Geometry(opt);
             if (geoElem == null)
@@ -61,7 +61,7 @@ namespace RevitPlatesWeight
                 string msg = "Не удается получить геометрию у элемента id " + plateFree.Id.ToString()
                     + ". Возможно, элемент отключен на виде.";
                 System.Windows.Forms.MessageBox.Show(msg);
-                Debug.WriteLine(msg);
+                Trace.WriteLine(msg);
                 throw new Exception(msg);
             }
 
