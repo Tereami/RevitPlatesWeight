@@ -87,6 +87,9 @@
 		<Reference Include="RbsLogger">
 			<HintPath>..\..\RbsLogger\RbsLogger\bin\Debug\RbsLogger.dll</HintPath>
 		</Reference>
+		<Reference Include="SettingsSaver">
+		  <HintPath>..\..\..\SettingsSaver\SettingsSaver\bin\Debug\net46\SettingsSaver.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 	<Choose>
 		<When Condition=" '$(Configuration)'=='R2019' ">

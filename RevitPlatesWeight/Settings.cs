@@ -15,9 +15,6 @@ More about solution / Подробнее: http://weandrevit.ru/plagin-massa-plas
 #endregion
 #region usings
 using System;
-using System.Diagnostics;
-using System.IO;
-using System.Xml.Serialization;
 #endregion
 
 namespace RevitPlatesWeight
@@ -58,69 +55,69 @@ namespace RevitPlatesWeight
 
 
 
-        private static string xmlPath = "";
+        //private static string xmlPath = "";
 
-        public static Settings Activate()
-        {
-            Trace.WriteLine("Start activate settins");
-            string appdataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string rbspath = Path.Combine(appdataPath, "bim-starter");
-            if (!Directory.Exists(rbspath))
-            {
-                Trace.WriteLine("Create directory " + rbspath);
-                Directory.CreateDirectory(rbspath);
-            }
-            string solutionName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-            string solutionFolder = Path.Combine(rbspath, solutionName);
-            if (!Directory.Exists(solutionFolder))
-            {
-                Directory.CreateDirectory(solutionFolder);
-                Trace.WriteLine("Create directory " + solutionFolder);
-            }
-            xmlPath = Path.Combine(solutionFolder, "settings.xml");
-            Settings s = null;
+        //public static Settings Activate()
+        //{
+        //    Trace.WriteLine("Start activate settins");
+        //    string appdataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        //    string rbspath = Path.Combine(appdataPath, "bim-starter");
+        //    if (!Directory.Exists(rbspath))
+        //    {
+        //        Trace.WriteLine("Create directory " + rbspath);
+        //        Directory.CreateDirectory(rbspath);
+        //    }
+        //    string solutionName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+        //    string solutionFolder = Path.Combine(rbspath, solutionName);
+        //    if (!Directory.Exists(solutionFolder))
+        //    {
+        //        Directory.CreateDirectory(solutionFolder);
+        //        Trace.WriteLine("Create directory " + solutionFolder);
+        //    }
+        //    xmlPath = Path.Combine(solutionFolder, "settings.xml");
+        //    Settings s = null;
 
-            if (File.Exists(xmlPath))
-            {
-                XmlSerializer serializer = new XmlSerializer(typeof(Settings));
-                using (StreamReader reader = new StreamReader(xmlPath))
-                {
-                    try
-                    {
-                        s = (Settings)serializer.Deserialize(reader);
-                        Trace.WriteLine("Settings deserialize success");
-                    }
-                    catch { }
-                }
-            }
-            if (s == null)
-            {
-                s = new Settings();
-                Trace.WriteLine("Settings is null, create new one");
-            }
-            SettingsForm form = new SettingsForm(s, xmlPath);
-            Trace.WriteLine("Show settings form");
-            form.ShowDialog();
-            if (form.DialogResult != System.Windows.Forms.DialogResult.OK)
-            {
-                Trace.WriteLine("Setting form cancelled");
-                return null;
-            }
-            s = form.newSets;
-            Trace.WriteLine("Settings success");
-            return s;
-        }
+        //    if (File.Exists(xmlPath))
+        //    {
+        //        XmlSerializer serializer = new XmlSerializer(typeof(Settings));
+        //        using (StreamReader reader = new StreamReader(xmlPath))
+        //        {
+        //            try
+        //            {
+        //                s = (Settings)serializer.Deserialize(reader);
+        //                Trace.WriteLine("Settings deserialize success");
+        //            }
+        //            catch { }
+        //        }
+        //    }
+        //    if (s == null)
+        //    {
+        //        s = new Settings();
+        //        Trace.WriteLine("Settings is null, create new one");
+        //    }
+        //    SettingsForm form = new SettingsForm(s, xmlPath);
+        //    Trace.WriteLine("Show settings form");
+        //    form.ShowDialog();
+        //    if (form.DialogResult != System.Windows.Forms.DialogResult.OK)
+        //    {
+        //        Trace.WriteLine("Setting form cancelled");
+        //        return null;
+        //    }
+        //    s = form.newSets;
+        //    Trace.WriteLine("Settings success");
+        //    return s;
+        //}
 
-        public void Save()
-        {
-            Trace.WriteLine("Start save settins to file " + xmlPath);
-            if (File.Exists(xmlPath)) File.Delete(xmlPath);
-            XmlSerializer serializer = new XmlSerializer(typeof(Settings));
-            using (FileStream writer = new FileStream(xmlPath, FileMode.OpenOrCreate))
-            {
-                serializer.Serialize(writer, this);
-            }
-            Trace.WriteLine("Save settings success");
-        }
+        //public void Save()
+        //{
+        //    Trace.WriteLine("Start save settins to file " + xmlPath);
+        //    if (File.Exists(xmlPath)) File.Delete(xmlPath);
+        //    XmlSerializer serializer = new XmlSerializer(typeof(Settings));
+        //    using (FileStream writer = new FileStream(xmlPath, FileMode.OpenOrCreate))
+        //    {
+        //        serializer.Serialize(writer, this);
+        //    }
+        //    Trace.WriteLine("Save settings success");
+        //}
     }
 }

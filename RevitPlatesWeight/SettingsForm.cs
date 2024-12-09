@@ -109,5 +109,11 @@ namespace RevitPlatesWeight
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
+
+        private void buttonReset_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Retry;
+            this.Close();
+        }
     }
 }

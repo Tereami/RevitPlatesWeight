@@ -87,6 +87,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxGroupConstParamName = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.buttonReset = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numWeightType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numElemType)).BeginInit();
@@ -481,12 +482,20 @@
             resources.ApplyResources(this.label10, "label10");
             this.label10.Name = "label10";
             // 
+            // buttonReset
+            // 
+            resources.ApplyResources(this.buttonReset, "buttonReset");
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
@@ -580,5 +589,6 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox textBoxLengthCorrectedParamName;
+        private System.Windows.Forms.Button buttonReset;
     }
 }

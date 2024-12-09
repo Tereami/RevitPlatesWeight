@@ -47,11 +47,23 @@ namespace RevitPlatesWeight
             if (revitVersionNumber < 2019)
             {
                 TaskDialog.Show(MyStrings.Error, MyStrings.ErrorRevit2019);
-                Trace.WriteLine("Unsupported Revit version");
+                Trace.WriteLine(MyStrings.ErrorRevit2019);
                 return Result.Cancelled;
             }
 
-            Settings sets = Settings.Activate();
+            SettingsSaver.Saver<Settings> saver = new SettingsSaver.Saver<Settings>();
+            Settings sets = saver.Activate("RevitPlatesWeight");
+            SettingsForm form = new SettingsForm(sets, saver.GetXmlPath());
+            if (form.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            {
+                if (form.DialogResult == System.Windows.Forms.DialogResult.Retry)
+                {
+                    saver.Reset();
+                }
+                return Result.Cancelled;
+            }
+            sets = form.newSets;
+
             if (sets == null) return Result.Cancelled;
             int platesCount = 0;
 
@@ -64,8 +76,6 @@ namespace RevitPlatesWeight
                 Trace.WriteLine("Unable to use view " + calculateView.Name);
                 return Result.Failed;
             }
-
-
 
             FilteredElementCollector collectorConstrs = null;
             FilteredElementCollector collectorPlatesFree = null;
@@ -228,7 +238,7 @@ namespace RevitPlatesWeight
             }
 
             BalloonTip.Show(MyStrings.Success, $"{MyStrings.PlatesProcessed}: {platesCount}");
-            sets.Save();
+            saver.Save(sets);
             return Result.Succeeded;
         }
     }
