@@ -21,7 +21,6 @@ using System.Diagnostics;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using RVTDocument = Autodesk.Revit.DB.Document;
-using ASDocument = Autodesk.AdvanceSteel.DocumentManagement.Document;
 using RVTransaction = Autodesk.Revit.DB.Transaction;
 
 #if R2019 || R2020
@@ -47,8 +46,8 @@ namespace RevitPlatesWeight
             int revitVersionNumber = int.Parse(commandData.Application.Application.VersionNumber);
             if (revitVersionNumber < 2019)
             {
-                TaskDialog.Show("Ошибка", "Функция доступна только в Revit 2019 и выше!");
-                Trace.WriteLine("Unsupportable Revit version");
+                TaskDialog.Show(MyStrings.Error, MyStrings.ErrorRevit2019);
+                Trace.WriteLine("Unsupported Revit version");
                 return Result.Cancelled;
             }
 
@@ -61,7 +60,7 @@ namespace RevitPlatesWeight
             View calculateView = doc.ActiveView;
             if (!(calculateView is View3D) || calculateView.DetailLevel != ViewDetailLevel.Fine)
             {
-                TaskDialog.Show("Ошибка", "Перед запуском плагина перейдите на 3D вид с включенным Высоким уровнем детализации");
+                TaskDialog.Show(MyStrings.Error, MyStrings.ErrorDetailLevel);
                 Trace.WriteLine("Unable to use view " + calculateView.Name);
                 return Result.Failed;
             }
@@ -145,7 +144,7 @@ namespace RevitPlatesWeight
             {
                 using (RVTransaction t = new RVTransaction(doc))
                 {
-                    t.Start("КМ параметризация");
+                    t.Start(MyStrings.TransactionName);
                     Trace.WriteLine("Start beams and columns parametrisation");
 
                     List<BuiltInCategory> constrCats = new List<BuiltInCategory> {
@@ -183,17 +182,17 @@ namespace RevitPlatesWeight
                         }
                         if (cutLength == null || cutLength == 0) continue;
 
-                        Parameter trueLengthParam = elem.LookupParameter("Рзм.ДлинаБалкиИстинная");
+                        Parameter trueLengthParam = elem.get_Parameter(new Guid("b62d0a35-0f0f-432d-9d3d-e821093a7d02")); // Рзм.ДлинаБалкиИстинная
                         if (trueLengthParam == null || !trueLengthParam.HasValue)
                         {
-                            Trace.WriteLine("Нет параметр Рзм.ДлинаБалкиИстинная");
+                            Trace.WriteLine("No parameter Dim.BeamTrueLeigth");
                             continue;
                         }
                         double trueLength = trueLengthParam.AsDouble();
 
                         double delta = (double)cutLength - trueLength;
 
-                        Parameter deltaParam = elem.LookupParameter("Рзм.КорректировкаДлины");
+                        Parameter deltaParam = elem.get_Parameter(new Guid("bcbcac9a-58f2-429e-bac0-f9d823ef8043")); //Рзм.КорректировкаДлины
                         if (deltaParam == null) continue;
                         if (deltaParam.IsReadOnly) continue;
 
@@ -228,7 +227,7 @@ namespace RevitPlatesWeight
                 }
             }
 
-            BalloonTip.Show("Успешно", "Обработано пластин: " + platesCount.ToString());
+            BalloonTip.Show(MyStrings.Success, $"{MyStrings.PlatesProcessed}: {platesCount}");
             sets.Save();
             return Result.Succeeded;
         }

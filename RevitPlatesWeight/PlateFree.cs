@@ -14,13 +14,13 @@ More about solution / Подробнее: http://weandrevit.ru/plagin-massa-plas
 */
 #endregion
 #region Using
+using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Steel;
+using Autodesk.Revit.UI;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
 using RVTDocument = Autodesk.Revit.DB.Document;
-using Autodesk.Revit.DB.Steel;
 #endregion
 
 namespace RevitPlatesWeight
@@ -58,8 +58,7 @@ namespace RevitPlatesWeight
             GeometryElement geoElem = _spe.get_Geometry(opt);
             if (geoElem == null)
             {
-                string msg = "Не удается получить геометрию у элемента id " + plateFree.Id.ToString()
-                    + ". Возможно, элемент отключен на виде.";
+                string msg = $"{MyStrings.ErrorFailedToGetGeometry1} id {plateFree.Id}. {MyStrings.ErrorFailedToGetGeometry2}";
                 System.Windows.Forms.MessageBox.Show(msg);
                 Trace.WriteLine(msg);
                 throw new Exception(msg);
@@ -87,7 +86,10 @@ namespace RevitPlatesWeight
             Parameter plateParam = plateFree.get_Parameter(param);
             if (plateParam == null || !plateParam.HasValue)
             {
-                throw new Exception("Нет параметра " + Enum.GetName(typeof(DimensionKind), kind) + " в пластине " + plateFree.Id.ToString());
+                string msg = $"{MyStrings.ErrorNoParameter1} {Enum.GetName(typeof(DimensionKind), kind)} {MyStrings.ErrorNoParameter2} {plateFree.Id}";
+                Trace.Write(msg);
+                TaskDialog.Show(MyStrings.Error, msg);
+                throw new Exception(msg);
             }
             double dim = plateParam.AsDouble();
             return dim;
@@ -105,8 +107,10 @@ namespace RevitPlatesWeight
             Parameter param = _spe.LookupParameter(paramName);
             if (param == null)
             {
-                TaskDialog.Show("Ошибка", "Нет параметра " + paramName);
-                throw new Exception("Нет параметра " + paramName);
+                string msg = $"{MyStrings.ErrorNoParameter1} {paramName}";
+                Trace.WriteLine(msg);
+                TaskDialog.Show(MyStrings.Error, msg);
+                throw new Exception(msg);
             }
             if (param.HasValue && !rewrite) return;
             switch (stype)

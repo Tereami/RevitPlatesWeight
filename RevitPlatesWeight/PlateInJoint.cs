@@ -15,13 +15,13 @@ More about solution / Подробнее: http://weandrevit.ru/plagin-massa-plas
 #endregion
 
 #region Using
+using Autodesk.AdvanceSteel.CADAccess;
+using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
 using RVTDocument = Autodesk.Revit.DB.Document;
-using Autodesk.AdvanceSteel.CADAccess;
 #endregion
 
 namespace RevitPlatesWeight
@@ -78,7 +78,9 @@ namespace RevitPlatesWeight
             ParameterValue lengthParamValue = plateAsSubelem.GetParameterValue(new ElementId(param));
             if (lengthParamValue == null)
             {
-                throw new Exception("Нет параметра " + Enum.GetName(typeof(DimensionKind), kind) + " в пластине " + plateAsSubelem.Element.Id.ToString());
+                string msg = $"{MyStrings.ErrorNoParameter1} {Enum.GetName(typeof(DimensionKind), kind)} {MyStrings.ErrorNoParameter2} {plateAsSubelem.Element.Id}";
+                TaskDialog.Show(MyStrings.Error, msg);
+                throw new Exception(msg);
             }
             DoubleParameterValue lengthDoubleValue = lengthParamValue as DoubleParameterValue;
             return lengthDoubleValue.Value;
@@ -89,7 +91,7 @@ namespace RevitPlatesWeight
             ElementId paramId = null;
             List<ElementId> paramIds = _subelem.GetAllParameters().ToList();
 
-            foreach(ElementId curParamId in paramIds)
+            foreach (ElementId curParamId in paramIds)
             {
 #if R2017 || R2018 || R2019 || R2020 || R2021 || R2022 || R2023
                 int curParamIdValue = curParamId.IntegerValue;
@@ -99,7 +101,7 @@ namespace RevitPlatesWeight
                 if (curParamIdValue > 0) //это общий параметр
                 {
                     Element paramElement = doc.GetElement(curParamId);
-                    if(paramElement.Name == paramName)
+                    if (paramElement.Name == paramName)
                     {
                         paramId = curParamId;
                         break;
@@ -109,7 +111,7 @@ namespace RevitPlatesWeight
                 {
                     BuiltInParameter bip = (BuiltInParameter)curParamIdValue;
                     string builtinParamname = LabelUtils.GetLabelFor(bip);
-                    if(builtinParamname == paramName)
+                    if (builtinParamname == paramName)
                     {
                         paramId = curParamId;
                         break;
@@ -126,10 +128,11 @@ namespace RevitPlatesWeight
 
             if (paramId == null)
             {
-                TaskDialog.Show("Ошибка", "Нет параметра " + paramName);
-                throw new Exception("Нет параметра " + paramName);
+                string msg = $"{MyStrings.ErrorNoParameter1} {paramName}";
+                TaskDialog.Show(MyStrings.Error, msg);
+                throw new Exception(msg);
             }
-            
+
 
             switch (stype)
             {

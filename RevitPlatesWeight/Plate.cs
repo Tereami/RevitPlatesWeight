@@ -15,7 +15,6 @@ More about solution / Подробнее: http://weandrevit.ru/plagin-massa-plas
 #endregion
 #region Usings
 using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
 using RVTDocument = Autodesk.Revit.DB.Document;
 #endregion
 
@@ -23,19 +22,19 @@ namespace RevitPlatesWeight
 {
     public abstract class Plate
     {
-        public const string GroupConstParamName = "КМ.ГруппаКонструкций";
-        public const string ElementTypeParamName = "КМ.ТипЭлемента";
-        public const string PlateNameParamName = "Мрк.НаименованиеСоставноеПрефикс";
-        public const string WeightParamName = "О_Масса";
-        public const string MaterialNameParam = "О_Материал";
-        public const string VolumeParamName = "О_Объем";
-        public const string ProfileNameParamName = "Орг.НаименованиеПрофиля";
-        public const string ElementWeightTypeParamName = "Орг.СпособПодсчетаМассы";
+        public static string GroupConstParamName = MyStrings.ValueGroupConstParamName;
+        public static string ElementTypeParamName = MyStrings.ValueElementTypeParamName;
+        public static string PlateNameParamName = MyStrings.ValuePlateNameParamName;
+        public static string WeightParamName = MyStrings.ValueWeightParamName;
+        public static string MaterialNameParam = MyStrings.ValueMaterialNameParam;
+        public static string VolumeParamName = MyStrings.ValueVolumeParamName;
+        public static string ProfileNameParamName = MyStrings.ValueProfileNameParamName;
+        public static string ElementWeightTypeParamName = MyStrings.ValueElementWeightTypeParamName;
 
-        public const string ThicknessParamName = "Рзм.Толщина";
-        public const string PlateLengthParamName = "Рзм.Длина";
-        public const string PlateWidthParamName = "Рзм.Ширина";
-        public const string LengthCorrectedParamName = "Рзм.КорректировкаДлины";
+        public static string ThicknessParamName = MyStrings.ValueThicknessParamName;
+        public static string PlateLengthParamName = MyStrings.ValuePlateLengthParamName;
+        public static string PlateWidthParamName = MyStrings.ValuePlateWidthParamName;
+        public static string LengthCorrectedParamName = MyStrings.ValueLengthCorrectedParamName;
 
         public abstract bool isSubelement { get; }
         public abstract double Volume { get; }
@@ -50,9 +49,9 @@ namespace RevitPlatesWeight
 
         double _mass;
         public double Mass { get { return _mass; } }
-        
+
         public string ThicknessName { get { return _thicknessName; } }
-        
+
 
         string _thicknessName;
         public string MaterialName;
@@ -97,15 +96,15 @@ namespace RevitPlatesWeight
 
         public string GetKey(bool enableNumbering, bool calculateLengthWidth)
         {
-            if(!enableNumbering)
+            if (!enableNumbering)
             {
                 return "1";
             }
-            string key = "m" + Mass.ToString("F2") + "t" + (Thickness * 304.8).ToString("F2");
+            string key = $"m{Mass.ToString("F2")} t{(Thickness * 304.8).ToString("F2")}";
 #if !R2019
             if (calculateLengthWidth)
             {
-                key += "l" + Length.ToString("F2") + "b" + Width.ToString("F2");
+                key += $"l{Length.ToString("F2")} b {Width.ToString("F2")}";
             }
 #endif
             return key;

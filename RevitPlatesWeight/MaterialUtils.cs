@@ -14,25 +14,25 @@ More about solution / Подробнее: http://weandrevit.ru/plagin-massa-plas
 */
 #endregion
 
-using System;
 using Autodesk.Revit.DB;
+using System;
 
 namespace RevitPlatesWeight
 {
     public static class MaterialUtils
     {
-		public static double GetMaterialDensity(Document doc, ElementId materialId)
-		{
-			Material material = doc.GetElement(materialId) as Material;
-			if(material.StructuralAssetId == ElementId.InvalidElementId)
+        public static double GetMaterialDensity(Document doc, ElementId materialId)
+        {
+            Material material = doc.GetElement(materialId) as Material;
+            if (material.StructuralAssetId == ElementId.InvalidElementId)
             {
-				string msg = "Не заданы Физические свойства материала " + material.Name;
-				System.Windows.Forms.MessageBox.Show(msg);
-				throw new Exception(msg);
+                string msg = $"{MyStrings.ErrorMaterialPhysicalParams} {material.Name}";
+                System.Windows.Forms.MessageBox.Show(msg);
+                throw new Exception(msg);
             }
-			PropertySetElement materialStructuralParams = doc.GetElement(material.StructuralAssetId) as PropertySetElement;
-			double density = materialStructuralParams.get_Parameter(BuiltInParameter.PHY_MATERIAL_PARAM_STRUCTURAL_DENSITY).AsDouble();
-			return density;
-		}
-	}
+            PropertySetElement materialStructuralParams = doc.GetElement(material.StructuralAssetId) as PropertySetElement;
+            double density = materialStructuralParams.get_Parameter(BuiltInParameter.PHY_MATERIAL_PARAM_STRUCTURAL_DENSITY).AsDouble();
+            return density;
+        }
+    }
 }

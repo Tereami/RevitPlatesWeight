@@ -15,13 +15,9 @@ More about solution / Подробнее: http://weandrevit.ru/plagin-massa-plas
 #endregion
 #region usings
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
-using System.Diagnostics;
 #endregion
 
 namespace RevitPlatesWeight
@@ -29,7 +25,7 @@ namespace RevitPlatesWeight
     [Serializable]
     public class Settings
     {
-        public string ProfileNameValue = "Прокат листовой горячекатаный (ГОСТ 19903-2015)";
+        public string ProfileNameValue = MyStrings.ProfileNameValue;
         public int GroupConstParamValue = 10;
         public int ElementTypeParamValue = 6;
         public int ElementWeightTypeValue = 5;
@@ -39,18 +35,18 @@ namespace RevitPlatesWeight
         public string platePrefix = "—";
         public bool writePlatesLengthWidth = false;
         public bool enablePlatesNumbering = false;
-        public string plateNumberingParamName = "О_Позиция";
+        public string plateNumberingParamName = MyStrings.PlateNumberingParamName;
         public int plateNumberingStartWith = 1;
         public bool writeBeamLength = false;
         public bool writeColumnLength = false;
         public bool useOnlyVisibleOnCurrentView = true;
 
         private static string xmlPath = "";
-        
+
         public static Settings Activate()
         {
             Trace.WriteLine("Start activate settins");
-            string appdataPath =  Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string appdataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string rbspath = Path.Combine(appdataPath, "bim-starter");
             if (!Directory.Exists(rbspath))
             {
@@ -80,7 +76,7 @@ namespace RevitPlatesWeight
                     catch { }
                 }
             }
-            if(s == null)
+            if (s == null)
             {
                 s = new Settings();
                 Trace.WriteLine("Settings is null, create new one");
@@ -88,7 +84,7 @@ namespace RevitPlatesWeight
             SettingsForm form = new SettingsForm(s, xmlPath);
             Trace.WriteLine("Show settings form");
             form.ShowDialog();
-            if(form.DialogResult != System.Windows.Forms.DialogResult.OK)
+            if (form.DialogResult != System.Windows.Forms.DialogResult.OK)
             {
                 Trace.WriteLine("Setting form cancelled");
                 return null;
