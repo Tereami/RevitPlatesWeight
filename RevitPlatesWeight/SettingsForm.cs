@@ -47,6 +47,20 @@ namespace RevitPlatesWeight
             checkBoxWritePlateLengthWidth.Enabled = false;
 #endif
 
+            this.textBoxGroupConstParamName.Text = set.GroupConstParamName;
+            this.textBoxElementTypeParamName.Text = set.ElementTypeParamName;
+            this.textBoxElementWeightTypeParamName.Text = set.ElementWeightTypeParamName;
+            this.textBoxWeightParamName.Text = set.WeightParamName;
+            this.textBoxMaterialNameParam.Text = set.MaterialNameParam;
+            this.textBoxVolumeParamName.Text = set.VolumeParamName;
+            this.textBoxProfileNameParamName.Text = set.ProfileNameParamName;
+            this.textBoxPlateNameParamName.Text = set.PlateNameParamName;
+            this.textBoxThicknessParamName.Text = set.ThicknessParamName;
+            this.textBoxPlateLengthParamName.Text = set.PlateLengthParamName;
+            this.textBoxPlateWidthParamName.Text = set.PlateWidthParamName;
+            this.textBoxLengthCorrectedParamName.Text = set.LengthCorrectedParamName;
+
+
             this.labelPath.Text = xmlpath;
         }
 
@@ -65,7 +79,7 @@ namespace RevitPlatesWeight
                 ElementTypeParamValue = (int)numElemType.Value,
                 ElementWeightTypeValue = (int)numWeightType.Value,
                 writeThickName = checkBoxWriteThickName.Checked,
-                writeThickvalue= checkBoxWriteThickness.Checked,
+                writeThickvalue = checkBoxWriteThickness.Checked,
                 platePrefix = textBoxPlatePrefix.Text,
                 writePlatesLengthWidth = checkBoxWritePlateLengthWidth.Checked,
                 enablePlatesNumbering = checkBoxEnablePlateNumbering.Checked,
@@ -74,8 +88,23 @@ namespace RevitPlatesWeight
                 writeBeamLength = checkBoxWriteBeamsLength.Checked,
                 writeColumnLength = checkBoxWriteColumnsLength.Checked,
                 Rewrite = checkBoxRewrite.Checked,
-                useOnlyVisibleOnCurrentView = radioOnlyCurrentView.Checked
+                useOnlyVisibleOnCurrentView = radioOnlyCurrentView.Checked,
+
+                GroupConstParamName = textBoxGroupConstParamName.Text,
+                ElementTypeParamName = textBoxElementTypeParamName.Text,
+                ElementWeightTypeParamName = textBoxElementWeightTypeParamName.Text,
+                WeightParamName = textBoxWeightParamName.Text,
+                MaterialNameParam = textBoxMaterialNameParam.Text,
+                VolumeParamName = textBoxVolumeParamName.Text,
+                ProfileNameParamName = textBoxProfileNameParamName.Text,
+                PlateNameParamName = textBoxPlateNameParamName.Text,
+                ThicknessParamName = textBoxThicknessParamName.Text,
+                PlateLengthParamName = textBoxPlateLengthParamName.Text,
+                PlateWidthParamName = textBoxPlateWidthParamName.Text,
+                LengthCorrectedParamName = textBoxLengthCorrectedParamName.Text
             };
+
+
 
             this.DialogResult = DialogResult.OK;
             this.Close();

@@ -55,26 +55,26 @@ namespace RevitPlatesWeight
 
         public void WriteValues(Settings sets, RVTDocument _doc)
         {
-            WriteParameter(_doc, GroupConstParamName, StorageType.Integer, sets.GroupConstParamValue, sets.Rewrite);
-            WriteParameter(_doc, ElementTypeParamName, StorageType.Integer, sets.ElementTypeParamValue, sets.Rewrite);
+            WriteParameter(_doc, sets.GroupConstParamName, StorageType.Integer, sets.GroupConstParamValue, sets.Rewrite);
+            WriteParameter(_doc, sets.ElementTypeParamName, StorageType.Integer, sets.ElementTypeParamValue, sets.Rewrite);
 
-            WriteParameter(_doc, ProfileNameParamName, StorageType.String, sets.ProfileNameValue, sets.Rewrite);
-            WriteParameter(_doc, ElementWeightTypeParamName, StorageType.Integer, sets.ElementWeightTypeValue, sets.Rewrite);
+            WriteParameter(_doc, sets.ProfileNameParamName, StorageType.String, sets.ProfileNameValue, sets.Rewrite);
+            WriteParameter(_doc, sets.ElementWeightTypeParamName, StorageType.Integer, sets.ElementWeightTypeValue, sets.Rewrite);
 
-            WriteParameter(_doc, PlateNameParamName, StorageType.String, _thicknessName, true);
-            WriteParameter(_doc, WeightParamName, StorageType.Double, Mass, true);
-            WriteParameter(_doc, MaterialNameParam, StorageType.ElementId, MaterialId, true);
-            WriteParameter(_doc, VolumeParamName, StorageType.Double, Volume, true);
+            WriteParameter(_doc, sets.PlateNameParamName, StorageType.String, _thicknessName, true);
+            WriteParameter(_doc, sets.WeightParamName, StorageType.Double, Mass, true);
+            WriteParameter(_doc, sets.MaterialNameParam, StorageType.ElementId, MaterialId, true);
+            WriteParameter(_doc, sets.VolumeParamName, StorageType.Double, Volume, true);
 
             if (sets.writeThickvalue)
             {
-                WriteParameter(_doc, ThicknessParamName, StorageType.Double, Thickness, true);
+                WriteParameter(_doc, sets.ThicknessParamName, StorageType.Double, Thickness, true);
             }
 #if !R2019
             if (sets.writePlatesLengthWidth)
             {
-                WriteParameter(_doc, PlateLengthParamName, StorageType.Double, Length, true);
-                WriteParameter(_doc, PlateWidthParamName, StorageType.Double, Width, true);
+                WriteParameter(_doc, sets.PlateLengthParamName, StorageType.Double, Length, true);
+                WriteParameter(_doc, sets.PlateWidthParamName, StorageType.Double, Width, true);
             }
 #endif
         }

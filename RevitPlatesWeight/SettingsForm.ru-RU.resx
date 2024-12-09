@@ -142,6 +142,9 @@
   <data name="label4.Text" xml:space="preserve">
     <value>Орг.СпособПодсчетаМассы</value>
   </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Параметры по умолчанию</value>
+  </data>
   <data name="checkBoxRewrite.Size" type="System.Drawing.Size, System.Drawing">
     <value>163, 17</value>
   </data>
@@ -151,9 +154,6 @@
   <data name="textBoxProfileName.Text" xml:space="preserve">
     <value>Сталь листовая (ГОСТ 19903-2015)</value>
   </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Параметры по умолчанию</value>
-  </data>
   <data name="buttonCancel.Text" xml:space="preserve">
     <value>Отмена</value>
   </data>
@@ -162,6 +162,9 @@
   </data>
   <data name="label5.Text" xml:space="preserve">
     <value>Настройки будут сохранены в файле:</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>Размеры пластины</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>139, 13</value>
@@ -193,8 +196,8 @@
   <data name="checkBoxWriteThickName.Text" xml:space="preserve">
     <value>Заполнить О_Наименование</value>
   </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>Размеры пластины</value>
+  <data name="groupBox3.Text" xml:space="preserve">
+    <value>Заполнение Рзм.КорректировкаДлины</value>
   </data>
   <data name="checkBoxWriteColumnsLength.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 17</value>
@@ -208,8 +211,8 @@
   <data name="checkBoxWriteBeamsLength.Text" xml:space="preserve">
     <value>Для балок (через "Фактическую длину")</value>
   </data>
-  <data name="groupBox3.Text" xml:space="preserve">
-    <value>Заполнение Рзм.КорректировкаДлины</value>
+  <data name="groupBox4.Text" xml:space="preserve">
+    <value>Нумерация пластин</value>
   </data>
   <data name="checkBoxEnablePlateNumbering.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 17</value>
@@ -229,8 +232,8 @@
   <data name="label8.Text" xml:space="preserve">
     <value>Начать с позиции:</value>
   </data>
-  <data name="groupBox4.Text" xml:space="preserve">
-    <value>Нумерация пластин</value>
+  <data name="groupBox5.Text" xml:space="preserve">
+    <value>Обрабатывать элементы:</value>
   </data>
   <data name="radioOnlyCurrentView.Size" type="System.Drawing.Size, System.Drawing">
     <value>218, 17</value>
@@ -244,8 +247,114 @@
   <data name="radioAllProject.Text" xml:space="preserve">
     <value>Во всём проекте</value>
   </data>
-  <data name="groupBox5.Text" xml:space="preserve">
-    <value>Обрабатывать элементы:</value>
+  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>151, 13</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>Орг.НаименованиеПрофиля</value>
+  </data>
+  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 13</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>О_Объем</value>
+  </data>
+  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 13</value>
+  </data>
+  <data name="label14.Text" xml:space="preserve">
+    <value>О_Материал</value>
+  </data>
+  <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 13</value>
+  </data>
+  <data name="label18.Text" xml:space="preserve">
+    <value>Орг.СпособПодсчетаМассы</value>
+  </data>
+  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 13</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>О_Масса</value>
+  </data>
+  <data name="textBoxLengthCorrectedParamName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 535</value>
+  </data>
+  <data name="textBoxPlateWidthParamName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 490</value>
+  </data>
+  <data name="textBoxPlateLengthParamName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 441</value>
+  </data>
+  <data name="textBoxThicknessParamName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 396</value>
+  </data>
+  <data name="textBoxPlateNameParamName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 351</value>
+  </data>
+  <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 518</value>
+  </data>
+  <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 13</value>
+  </data>
+  <data name="label22.Text" xml:space="preserve">
+    <value>Рзм.КорректировкаДлины</value>
+  </data>
+  <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 473</value>
+  </data>
+  <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 13</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>Рзм.Ширина</value>
+  </data>
+  <data name="label20.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 424</value>
+  </data>
+  <data name="label20.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 13</value>
+  </data>
+  <data name="label20.Text" xml:space="preserve">
+    <value>Рзм.Длина</value>
+  </data>
+  <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 379</value>
+  </data>
+  <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 13</value>
+  </data>
+  <data name="label19.Text" xml:space="preserve">
+    <value>Рзм.Толщина</value>
+  </data>
+  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 334</value>
+  </data>
+  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 13</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>О_Позиция</value>
+  </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 13</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>КМ.ТипЭлемента</value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 13</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>КМ.ГруппаКонструкций</value>
+  </data>
+  <data name="groupBox6.Text" xml:space="preserve">
+    <value>Имена параметров</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Inherit</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Настройки</value>
