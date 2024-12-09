@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -74,47 +75,27 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 80);
-            this.label1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(129, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "КМ.ГруппаКонструкций:";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 103);
-            this.label2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "КМ.ТипЭлемента";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 23);
-            this.label3.Margin = new System.Windows.Forms.Padding(3, 0, 3, 5);
+            resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(151, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Орг.НаименованиеПрофиля";
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 126);
-            this.label4.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
+            resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(149, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Орг.СпособПодсчетаМассы";
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.checkBoxRewrite);
             this.groupBox1.Controls.Add(this.textBoxProfileName);
             this.groupBox1.Controls.Add(this.numWeightType);
@@ -124,38 +105,24 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 88);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(10);
-            this.groupBox1.Size = new System.Drawing.Size(250, 181);
-            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Параметры по умолчанию";
             // 
             // checkBoxRewrite
             // 
-            this.checkBoxRewrite.AutoSize = true;
-            this.checkBoxRewrite.Location = new System.Drawing.Point(13, 152);
+            resources.ApplyResources(this.checkBoxRewrite, "checkBoxRewrite");
             this.checkBoxRewrite.Name = "checkBoxRewrite";
-            this.checkBoxRewrite.Size = new System.Drawing.Size(163, 17);
-            this.checkBoxRewrite.TabIndex = 6;
-            this.checkBoxRewrite.Text = "Перезаписывать значения";
             this.checkBoxRewrite.UseVisualStyleBackColor = true;
             // 
             // textBoxProfileName
             // 
-            this.textBoxProfileName.Location = new System.Drawing.Point(13, 44);
+            resources.ApplyResources(this.textBoxProfileName, "textBoxProfileName");
             this.textBoxProfileName.Name = "textBoxProfileName";
-            this.textBoxProfileName.Size = new System.Drawing.Size(223, 20);
-            this.textBoxProfileName.TabIndex = 5;
-            this.textBoxProfileName.Text = "Сталь листовая (ГОСТ 19903-2015)";
             // 
             // numWeightType
             // 
-            this.numWeightType.Location = new System.Drawing.Point(175, 124);
+            resources.ApplyResources(this.numWeightType, "numWeightType");
             this.numWeightType.Name = "numWeightType";
-            this.numWeightType.Size = new System.Drawing.Size(61, 20);
-            this.numWeightType.TabIndex = 4;
             this.numWeightType.Value = new decimal(new int[] {
             5,
             0,
@@ -164,10 +131,8 @@
             // 
             // numElemType
             // 
-            this.numElemType.Location = new System.Drawing.Point(175, 101);
+            resources.ApplyResources(this.numElemType, "numElemType");
             this.numElemType.Name = "numElemType";
-            this.numElemType.Size = new System.Drawing.Size(61, 20);
-            this.numElemType.TabIndex = 4;
             this.numElemType.Value = new decimal(new int[] {
             6,
             0,
@@ -176,10 +141,8 @@
             // 
             // numGroupConstr
             // 
-            this.numGroupConstr.Location = new System.Drawing.Point(175, 78);
+            resources.ApplyResources(this.numGroupConstr, "numGroupConstr");
             this.numGroupConstr.Name = "numGroupConstr";
-            this.numGroupConstr.Size = new System.Drawing.Size(61, 20);
-            this.numGroupConstr.TabIndex = 4;
             this.numGroupConstr.Value = new decimal(new int[] {
             10,
             0,
@@ -188,191 +151,122 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.Location = new System.Drawing.Point(106, 687);
+            resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(75, 23);
-            this.buttonOk.TabIndex = 2;
-            this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(187, 687);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 2;
-            this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // label5
             // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 622);
+            resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(197, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Настройки будут сохранены в файле:";
             // 
             // labelPath
             // 
-            this.labelPath.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.labelPath.Location = new System.Drawing.Point(9, 640);
+            resources.ApplyResources(this.labelPath, "labelPath");
             this.labelPath.Name = "labelPath";
-            this.labelPath.Size = new System.Drawing.Size(250, 39);
-            this.labelPath.TabIndex = 3;
-            this.labelPath.Text = "C:\\Users\\Username\\AppData\\Roaming\\bim-starter\\RevitPlatesWeight\\settings.xml";
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.textBoxPlatePrefix);
             this.groupBox2.Controls.Add(this.checkBoxWritePlateLengthWidth);
             this.groupBox2.Controls.Add(this.checkBoxWriteThickness);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.checkBoxWriteThickName);
-            this.groupBox2.Location = new System.Drawing.Point(12, 275);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(250, 148);
-            this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Размеры пластины";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(27, 125);
+            resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(139, 13);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "Только Revit 2020 и выше";
             // 
             // textBoxPlatePrefix
             // 
-            this.textBoxPlatePrefix.Location = new System.Drawing.Point(13, 79);
+            resources.ApplyResources(this.textBoxPlatePrefix, "textBoxPlatePrefix");
             this.textBoxPlatePrefix.Name = "textBoxPlatePrefix";
-            this.textBoxPlatePrefix.Size = new System.Drawing.Size(223, 20);
-            this.textBoxPlatePrefix.TabIndex = 1;
-            this.textBoxPlatePrefix.Text = "—";
             // 
             // checkBoxWritePlateLengthWidth
             // 
-            this.checkBoxWritePlateLengthWidth.AutoSize = true;
-            this.checkBoxWritePlateLengthWidth.Location = new System.Drawing.Point(13, 105);
+            resources.ApplyResources(this.checkBoxWritePlateLengthWidth, "checkBoxWritePlateLengthWidth");
             this.checkBoxWritePlateLengthWidth.Name = "checkBoxWritePlateLengthWidth";
-            this.checkBoxWritePlateLengthWidth.Size = new System.Drawing.Size(215, 17);
-            this.checkBoxWritePlateLengthWidth.TabIndex = 1;
-            this.checkBoxWritePlateLengthWidth.Text = "Заполнить Рзм.Длина и Рзм.Ширина";
             this.checkBoxWritePlateLengthWidth.UseVisualStyleBackColor = true;
             // 
             // checkBoxWriteThickness
             // 
-            this.checkBoxWriteThickness.AutoSize = true;
-            this.checkBoxWriteThickness.Location = new System.Drawing.Point(13, 43);
+            resources.ApplyResources(this.checkBoxWriteThickness, "checkBoxWriteThickness");
             this.checkBoxWriteThickness.Name = "checkBoxWriteThickness";
-            this.checkBoxWriteThickness.Size = new System.Drawing.Size(153, 17);
-            this.checkBoxWriteThickness.TabIndex = 0;
-            this.checkBoxWriteThickness.Text = "Заполнить Рзм.Толщина";
             this.checkBoxWriteThickness.UseVisualStyleBackColor = true;
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(10, 63);
+            resources.ApplyResources(this.label9, "label9");
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(156, 13);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Префикс имени для пластин:";
             // 
             // checkBoxWriteThickName
             // 
-            this.checkBoxWriteThickName.AutoSize = true;
+            resources.ApplyResources(this.checkBoxWriteThickName, "checkBoxWriteThickName");
             this.checkBoxWriteThickName.Checked = true;
             this.checkBoxWriteThickName.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxWriteThickName.Location = new System.Drawing.Point(13, 20);
             this.checkBoxWriteThickName.Name = "checkBoxWriteThickName";
-            this.checkBoxWriteThickName.Size = new System.Drawing.Size(173, 17);
-            this.checkBoxWriteThickName.TabIndex = 0;
-            this.checkBoxWriteThickName.Text = "Заполнить О_Наименование";
             this.checkBoxWriteThickName.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Controls.Add(this.checkBoxWriteColumnsLength);
             this.groupBox3.Controls.Add(this.checkBoxWriteBeamsLength);
-            this.groupBox3.Location = new System.Drawing.Point(12, 547);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(250, 72);
-            this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Заполнение Рзм.КорректировкаДлины";
             // 
             // checkBoxWriteColumnsLength
             // 
-            this.checkBoxWriteColumnsLength.AutoSize = true;
-            this.checkBoxWriteColumnsLength.Location = new System.Drawing.Point(13, 44);
+            resources.ApplyResources(this.checkBoxWriteColumnsLength, "checkBoxWriteColumnsLength");
             this.checkBoxWriteColumnsLength.Name = "checkBoxWriteColumnsLength";
-            this.checkBoxWriteColumnsLength.Size = new System.Drawing.Size(220, 17);
-            this.checkBoxWriteColumnsLength.TabIndex = 7;
-            this.checkBoxWriteColumnsLength.Text = "Для колонн (через \"Длину подрезки\")";
             this.checkBoxWriteColumnsLength.UseVisualStyleBackColor = true;
             // 
             // checkBoxWriteBeamsLength
             // 
-            this.checkBoxWriteBeamsLength.AutoSize = true;
-            this.checkBoxWriteBeamsLength.Location = new System.Drawing.Point(13, 21);
+            resources.ApplyResources(this.checkBoxWriteBeamsLength, "checkBoxWriteBeamsLength");
             this.checkBoxWriteBeamsLength.Name = "checkBoxWriteBeamsLength";
-            this.checkBoxWriteBeamsLength.Size = new System.Drawing.Size(233, 17);
-            this.checkBoxWriteBeamsLength.TabIndex = 6;
-            this.checkBoxWriteBeamsLength.Text = "Для балок (через \"Фактическую длину\")";
             this.checkBoxWriteBeamsLength.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Controls.Add(this.checkBoxEnablePlateNumbering);
             this.groupBox4.Controls.Add(this.textBoxPlateNumberingParamName);
             this.groupBox4.Controls.Add(this.numericUpDownNumberingStartWith);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Location = new System.Drawing.Point(12, 429);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(250, 112);
-            this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Нумерация пластин";
             // 
             // checkBoxEnablePlateNumbering
             // 
-            this.checkBoxEnablePlateNumbering.AutoSize = true;
-            this.checkBoxEnablePlateNumbering.Location = new System.Drawing.Point(13, 19);
+            resources.ApplyResources(this.checkBoxEnablePlateNumbering, "checkBoxEnablePlateNumbering");
             this.checkBoxEnablePlateNumbering.Name = "checkBoxEnablePlateNumbering";
-            this.checkBoxEnablePlateNumbering.Size = new System.Drawing.Size(75, 17);
-            this.checkBoxEnablePlateNumbering.TabIndex = 2;
-            this.checkBoxEnablePlateNumbering.Text = "Включить";
             this.checkBoxEnablePlateNumbering.UseVisualStyleBackColor = true;
             // 
             // textBoxPlateNumberingParamName
             // 
-            this.textBoxPlateNumberingParamName.Location = new System.Drawing.Point(13, 58);
+            resources.ApplyResources(this.textBoxPlateNumberingParamName, "textBoxPlateNumberingParamName");
             this.textBoxPlateNumberingParamName.Name = "textBoxPlateNumberingParamName";
-            this.textBoxPlateNumberingParamName.Size = new System.Drawing.Size(223, 20);
-            this.textBoxPlateNumberingParamName.TabIndex = 1;
-            this.textBoxPlateNumberingParamName.Text = "О_Позиция";
             // 
             // numericUpDownNumberingStartWith
             // 
-            this.numericUpDownNumberingStartWith.Location = new System.Drawing.Point(172, 84);
+            resources.ApplyResources(this.numericUpDownNumberingStartWith, "numericUpDownNumberingStartWith");
             this.numericUpDownNumberingStartWith.Name = "numericUpDownNumberingStartWith";
-            this.numericUpDownNumberingStartWith.Size = new System.Drawing.Size(61, 20);
-            this.numericUpDownNumberingStartWith.TabIndex = 4;
             this.numericUpDownNumberingStartWith.Value = new decimal(new int[] {
             1,
             0,
@@ -381,64 +275,42 @@
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 42);
+            resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(166, 13);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Имя параметра для нумерации";
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(13, 86);
-            this.label8.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
+            resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(100, 13);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Начать с позиции:";
             // 
             // groupBox5
             // 
-            this.groupBox5.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Controls.Add(this.radioOnlyCurrentView);
             this.groupBox5.Controls.Add(this.radioAllProject);
-            this.groupBox5.Location = new System.Drawing.Point(12, 12);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(250, 70);
-            this.groupBox5.TabIndex = 7;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Обрабатывать элементы:";
             // 
             // radioOnlyCurrentView
             // 
-            this.radioOnlyCurrentView.AutoSize = true;
+            resources.ApplyResources(this.radioOnlyCurrentView, "radioOnlyCurrentView");
             this.radioOnlyCurrentView.Checked = true;
-            this.radioOnlyCurrentView.Location = new System.Drawing.Point(13, 19);
             this.radioOnlyCurrentView.Name = "radioOnlyCurrentView";
-            this.radioOnlyCurrentView.Size = new System.Drawing.Size(218, 17);
-            this.radioOnlyCurrentView.TabIndex = 0;
             this.radioOnlyCurrentView.TabStop = true;
-            this.radioOnlyCurrentView.Text = "Только видимые на текущем 3D виде";
             this.radioOnlyCurrentView.UseVisualStyleBackColor = true;
             // 
             // radioAllProject
             // 
-            this.radioAllProject.AutoSize = true;
-            this.radioAllProject.Location = new System.Drawing.Point(13, 42);
+            resources.ApplyResources(this.radioAllProject, "radioAllProject");
             this.radioAllProject.Name = "radioAllProject";
-            this.radioAllProject.Size = new System.Drawing.Size(111, 17);
-            this.radioAllProject.TabIndex = 0;
-            this.radioAllProject.Text = "Во всём проекте";
             this.radioAllProject.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
             this.AcceptButton = this.buttonOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(274, 722);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -450,8 +322,6 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "SettingsForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Настройки";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numWeightType)).EndInit();
