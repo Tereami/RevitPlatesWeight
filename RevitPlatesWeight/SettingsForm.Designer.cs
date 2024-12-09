@@ -62,6 +62,33 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.radioOnlyCurrentView = new System.Windows.Forms.RadioButton();
             this.radioAllProject = new System.Windows.Forms.RadioButton();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxGroupConstParamName = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBoxElementTypeParamName = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBoxPlateNameParamName = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBoxWeightParamName = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBoxMaterialNameParam = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.textBoxVolumeParamName = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBoxProfileNameParamName = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.textBoxElementWeightTypeParamName = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textBoxThicknessParamName = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textBoxPlateLengthParamName = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.textBoxPlateWidthParamName = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.textBoxLengthCorrectedParamName = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numWeightType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numElemType)).BeginInit();
@@ -71,6 +98,7 @@
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberingStartWith)).BeginInit();
             this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -95,7 +123,6 @@
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.checkBoxRewrite);
             this.groupBox1.Controls.Add(this.textBoxProfileName);
             this.groupBox1.Controls.Add(this.numWeightType);
@@ -105,6 +132,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label2);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -176,13 +204,13 @@
             // 
             // groupBox2
             // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.textBoxPlatePrefix);
             this.groupBox2.Controls.Add(this.checkBoxWritePlateLengthWidth);
             this.groupBox2.Controls.Add(this.checkBoxWriteThickness);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.checkBoxWriteThickName);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
@@ -223,9 +251,9 @@
             // 
             // groupBox3
             // 
-            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Controls.Add(this.checkBoxWriteColumnsLength);
             this.groupBox3.Controls.Add(this.checkBoxWriteBeamsLength);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
             // 
@@ -243,12 +271,12 @@
             // 
             // groupBox4
             // 
-            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Controls.Add(this.checkBoxEnablePlateNumbering);
             this.groupBox4.Controls.Add(this.textBoxPlateNumberingParamName);
             this.groupBox4.Controls.Add(this.numericUpDownNumberingStartWith);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.label8);
+            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
             // 
@@ -285,9 +313,9 @@
             // 
             // groupBox5
             // 
-            resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Controls.Add(this.radioOnlyCurrentView);
             this.groupBox5.Controls.Add(this.radioAllProject);
+            resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
             // 
@@ -305,12 +333,175 @@
             this.radioAllProject.Name = "radioAllProject";
             this.radioAllProject.UseVisualStyleBackColor = true;
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.textBox1);
+            this.groupBox6.Controls.Add(this.textBoxProfileNameParamName);
+            this.groupBox6.Controls.Add(this.textBoxVolumeParamName);
+            this.groupBox6.Controls.Add(this.textBoxMaterialNameParam);
+            this.groupBox6.Controls.Add(this.textBoxElementWeightTypeParamName);
+            this.groupBox6.Controls.Add(this.textBoxWeightParamName);
+            this.groupBox6.Controls.Add(this.label17);
+            this.groupBox6.Controls.Add(this.label16);
+            this.groupBox6.Controls.Add(this.label15);
+            this.groupBox6.Controls.Add(this.label14);
+            this.groupBox6.Controls.Add(this.label18);
+            this.groupBox6.Controls.Add(this.label13);
+            this.groupBox6.Controls.Add(this.textBoxLengthCorrectedParamName);
+            this.groupBox6.Controls.Add(this.textBoxPlateWidthParamName);
+            this.groupBox6.Controls.Add(this.textBoxPlateLengthParamName);
+            this.groupBox6.Controls.Add(this.textBoxThicknessParamName);
+            this.groupBox6.Controls.Add(this.textBoxPlateNameParamName);
+            this.groupBox6.Controls.Add(this.label22);
+            this.groupBox6.Controls.Add(this.label21);
+            this.groupBox6.Controls.Add(this.label20);
+            this.groupBox6.Controls.Add(this.label19);
+            this.groupBox6.Controls.Add(this.label12);
+            this.groupBox6.Controls.Add(this.textBoxElementTypeParamName);
+            this.groupBox6.Controls.Add(this.label11);
+            this.groupBox6.Controls.Add(this.textBoxGroupConstParamName);
+            this.groupBox6.Controls.Add(this.label10);
+            resources.ApplyResources(this.groupBox6, "groupBox6");
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.TabStop = false;
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // textBoxGroupConstParamName
+            // 
+            resources.ApplyResources(this.textBoxGroupConstParamName, "textBoxGroupConstParamName");
+            this.textBoxGroupConstParamName.Name = "textBoxGroupConstParamName";
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
+            // textBoxElementTypeParamName
+            // 
+            resources.ApplyResources(this.textBoxElementTypeParamName, "textBoxElementTypeParamName");
+            this.textBoxElementTypeParamName.Name = "textBoxElementTypeParamName";
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            // 
+            // textBoxPlateNameParamName
+            // 
+            resources.ApplyResources(this.textBoxPlateNameParamName, "textBoxPlateNameParamName");
+            this.textBoxPlateNameParamName.Name = "textBoxPlateNameParamName";
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
+            // 
+            // textBoxWeightParamName
+            // 
+            resources.ApplyResources(this.textBoxWeightParamName, "textBoxWeightParamName");
+            this.textBoxWeightParamName.Name = "textBoxWeightParamName";
+            // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
+            // 
+            // textBoxMaterialNameParam
+            // 
+            resources.ApplyResources(this.textBoxMaterialNameParam, "textBoxMaterialNameParam");
+            this.textBoxMaterialNameParam.Name = "textBoxMaterialNameParam";
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.Name = "label15";
+            // 
+            // textBoxVolumeParamName
+            // 
+            resources.ApplyResources(this.textBoxVolumeParamName, "textBoxVolumeParamName");
+            this.textBoxVolumeParamName.Name = "textBoxVolumeParamName";
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
+            // 
+            // textBoxProfileNameParamName
+            // 
+            resources.ApplyResources(this.textBoxProfileNameParamName, "textBoxProfileNameParamName");
+            this.textBoxProfileNameParamName.Name = "textBoxProfileNameParamName";
+            // 
+            // label17
+            // 
+            resources.ApplyResources(this.label17, "label17");
+            this.label17.Name = "label17";
+            // 
+            // textBox1
+            // 
+            resources.ApplyResources(this.textBox1, "textBox1");
+            this.textBox1.Name = "textBox1";
+            // 
+            // label18
+            // 
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.Name = "label18";
+            // 
+            // textBoxElementWeightTypeParamName
+            // 
+            resources.ApplyResources(this.textBoxElementWeightTypeParamName, "textBoxElementWeightTypeParamName");
+            this.textBoxElementWeightTypeParamName.Name = "textBoxElementWeightTypeParamName";
+            // 
+            // label19
+            // 
+            resources.ApplyResources(this.label19, "label19");
+            this.label19.Name = "label19";
+            // 
+            // textBoxThicknessParamName
+            // 
+            resources.ApplyResources(this.textBoxThicknessParamName, "textBoxThicknessParamName");
+            this.textBoxThicknessParamName.Name = "textBoxThicknessParamName";
+            // 
+            // label20
+            // 
+            resources.ApplyResources(this.label20, "label20");
+            this.label20.Name = "label20";
+            // 
+            // textBoxPlateLengthParamName
+            // 
+            resources.ApplyResources(this.textBoxPlateLengthParamName, "textBoxPlateLengthParamName");
+            this.textBoxPlateLengthParamName.Name = "textBoxPlateLengthParamName";
+            // 
+            // label21
+            // 
+            resources.ApplyResources(this.label21, "label21");
+            this.label21.Name = "label21";
+            // 
+            // textBoxPlateWidthParamName
+            // 
+            resources.ApplyResources(this.textBoxPlateWidthParamName, "textBoxPlateWidthParamName");
+            this.textBoxPlateWidthParamName.Name = "textBoxPlateWidthParamName";
+            // 
+            // label22
+            // 
+            resources.ApplyResources(this.label22, "label22");
+            this.label22.Name = "label22";
+            // 
+            // textBoxLengthCorrectedParamName
+            // 
+            resources.ApplyResources(this.textBoxLengthCorrectedParamName, "textBoxLengthCorrectedParamName");
+            this.textBoxLengthCorrectedParamName.Name = "textBoxLengthCorrectedParamName";
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -336,6 +527,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberingStartWith)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -376,5 +569,32 @@
         private System.Windows.Forms.RadioButton radioAllProject;
         private System.Windows.Forms.TextBox textBoxPlatePrefix;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBoxGroupConstParamName;
+        private System.Windows.Forms.TextBox textBoxElementTypeParamName;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBoxPlateNameParamName;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textBoxWeightParamName;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox textBoxMaterialNameParam;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textBoxVolumeParamName;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox textBoxProfileNameParamName;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox textBoxElementWeightTypeParamName;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox textBoxThicknessParamName;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox textBoxPlateLengthParamName;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox textBoxPlateWidthParamName;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox textBoxLengthCorrectedParamName;
     }
 }

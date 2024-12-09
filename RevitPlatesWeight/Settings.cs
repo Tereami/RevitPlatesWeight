@@ -41,6 +41,23 @@ namespace RevitPlatesWeight
         public bool writeColumnLength = false;
         public bool useOnlyVisibleOnCurrentView = true;
 
+
+        public string GroupConstParamName = MyStrings.ValueGroupConstParamName;
+        public string ElementTypeParamName = MyStrings.ValueElementTypeParamName;
+        public string ElementWeightTypeParamName = MyStrings.ValueElementWeightTypeParamName;
+        public string WeightParamName = MyStrings.ValueWeightParamName;
+        public string MaterialNameParam = MyStrings.ValueMaterialNameParam;
+        public string VolumeParamName = MyStrings.ValueVolumeParamName;
+        public string ProfileNameParamName = MyStrings.ValueProfileNameParamName;
+        public string PlateNameParamName = MyStrings.ValuePlateNameParamName;
+
+        public string ThicknessParamName = MyStrings.ValueThicknessParamName;
+        public string PlateLengthParamName = MyStrings.ValuePlateLengthParamName;
+        public string PlateWidthParamName = MyStrings.ValuePlateWidthParamName;
+        public string LengthCorrectedParamName = MyStrings.ValueLengthCorrectedParamName;
+
+
+
         private static string xmlPath = "";
 
         public static Settings Activate()

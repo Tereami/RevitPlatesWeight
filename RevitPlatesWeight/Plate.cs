@@ -22,20 +22,6 @@ namespace RevitPlatesWeight
 {
     public abstract class Plate
     {
-        public static string GroupConstParamName = MyStrings.ValueGroupConstParamName;
-        public static string ElementTypeParamName = MyStrings.ValueElementTypeParamName;
-        public static string PlateNameParamName = MyStrings.ValuePlateNameParamName;
-        public static string WeightParamName = MyStrings.ValueWeightParamName;
-        public static string MaterialNameParam = MyStrings.ValueMaterialNameParam;
-        public static string VolumeParamName = MyStrings.ValueVolumeParamName;
-        public static string ProfileNameParamName = MyStrings.ValueProfileNameParamName;
-        public static string ElementWeightTypeParamName = MyStrings.ValueElementWeightTypeParamName;
-
-        public static string ThicknessParamName = MyStrings.ValueThicknessParamName;
-        public static string PlateLengthParamName = MyStrings.ValuePlateLengthParamName;
-        public static string PlateWidthParamName = MyStrings.ValuePlateWidthParamName;
-        public static string LengthCorrectedParamName = MyStrings.ValueLengthCorrectedParamName;
-
         public abstract bool isSubelement { get; }
         public abstract double Volume { get; }
         public abstract double Thickness { get; }
